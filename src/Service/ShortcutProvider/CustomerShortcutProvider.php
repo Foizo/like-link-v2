@@ -12,26 +12,26 @@ class CustomerShortcutProvider extends AbstractShortcutProvider
     }
 
 
-    function getShortCut(ShortUrlRequest $app_shortcut_request): ShortUrlRequest
+    function getShortCut(ShortUrlRequest $short_url_request): ShortUrlRequest
     {
-        if (!$app_shortcut_request->shortcut) {
-            $app_shortcut_request->valid_request= false;
+        if (!$short_url_request->shortcut) {
+            $short_url_request->valid_request= false;
             $this->logger->error(__CLASS__ . ": given customer shortcut is null");
         }
 
-        if (!preg_match($this->shortcutPattern(), $app_shortcut_request->shortcut)) {
-            $app_shortcut_request->valid_request = false;
-            $this->logger->error(__CLASS__ . ": customer shortcut does not match pattern conditions", ['shortcut' => $app_shortcut_request->shortcut]);
+        if (!preg_match($this->shortcutPattern(), $short_url_request->shortcut)) {
+            $short_url_request->valid_request = false;
+            $this->logger->error(__CLASS__ . ": customer shortcut does not match pattern conditions", ['shortcut' => $short_url_request->shortcut]);
         }
 
-        if (!$this->isUniqueShortcut($app_shortcut_request)) {
-            $app_shortcut_request->valid_request = false;
-            $this->logger->error(__CLASS__ . ": customer shortcut does not unique", ['shortcut' => $app_shortcut_request->shortcut]);
+        if ($this->isExistUniqueShortcut($short_url_request)) {
+            $short_url_request->valid_request = false;
+            $this->logger->error(__CLASS__ . ": customer shortcut does not unique", ['shortcut' => $short_url_request->shortcut]);
         }
 
-        if ($app_shortcut_request->valid_request) {
-            $this->logger->info(__CLASS__ . ": customer shortcut is unique", ['shortcut' => $app_shortcut_request->shortcut]);
+        if ($short_url_request->valid_request) {
+            $this->logger->info(__CLASS__ . ": customer shortcut is unique", ['shortcut' => $short_url_request->shortcut]);
         }
-        return $app_shortcut_request;
+        return $short_url_request;
     }
 }

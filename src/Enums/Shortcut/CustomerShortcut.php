@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 namespace App\Enums\Shortcut;
 
-enum CustomerShortcut:string
+class CustomerShortcut
 {
     const ENTITY_COLUMN_LENGTH = 20;
 

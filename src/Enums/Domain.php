@@ -6,7 +6,7 @@ enum Domain:string
     const ENTITY_DOMAIN_COLUMN_LENGTH = 29;
     const ENTITY_LANG_COLUMN_LENGTH = 2;
 
-    const APP_DOMAIN_PATTERN = '~^[\w\-]+(\.[\w\-]+)*(:\d+)?$~';
+    const APP_DOMAIN_PATTERN = '~^([a-z]+)*(.[a-z]+)?$~';
 
     case DEFAULT_APP_LANGUAGE = 'cs';
     case EU_APP_LANGUAGE = 'en';

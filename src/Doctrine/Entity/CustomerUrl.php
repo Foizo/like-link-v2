@@ -21,8 +21,8 @@ class CustomerUrl extends DefaultEntity
     use RelatedDomainTrait;
 
     /** @see ShortcutUrl::$customer_url  */
-    #[ORM\OneToOne(inversedBy: 'customer_url')]
-    #[ORM\JoinColumn(onDelete: 'SET NULL')]
+    #[ORM\OneToOne(inversedBy: 'customer_url', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     public ?ShortcutUrl $shortcut_url = null;
 
     #[ORM\Column(type: Types::TEXT)]

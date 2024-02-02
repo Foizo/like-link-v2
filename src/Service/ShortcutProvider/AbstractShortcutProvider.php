@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 namespace App\Service\ShortcutProvider;
 
+use App\Doctrine\Entity\AppDomain;
 use App\Models\ShortcutAndUrl\ShortUrlRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -8,6 +9,7 @@ use Psr\Log\LoggerInterface;
 abstract class AbstractShortcutProvider
 {
     function __construct(
+        protected AppDomain $current_app,
         protected EntityManagerInterface $em,
         protected LoggerInterface $logger
     ){}
@@ -15,10 +17,10 @@ abstract class AbstractShortcutProvider
 
     abstract function shortcutPattern():string;
 
-    abstract function getShortcut(ShortUrlRequest $app_shortcut_request): ShortUrlRequest;
+    abstract function getShortcut(ShortUrlRequest $short_url_request): ShortUrlRequest;
 
 
-    protected function isUniqueShortcut(ShortUrlRequest $app_shortcut_request): bool
+    protected function isExistUniqueShortcut(ShortUrlRequest $shor_url_request): bool
     {
 
         return (bool) $this->em->getConnection()->fetchOne('
@@ -29,8 +31,8 @@ abstract class AbstractShortcutProvider
                 OR s.customer_shortcut = :shortcut
         ',
             [
-            'app_domain_id' => $app_shortcut_request->app_domain->id,
-            'shortcut' => $app_shortcut_request->shortcut
+            'app_domain_id' => $this->current_app->id,
+            'shortcut' => $shor_url_request->shortcut
             ]
         );
     }

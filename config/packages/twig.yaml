@@ -1,5 +1,11 @@
 twig:
+    paths:
+        '%kernel.project_dir%/templates/layout': layout
+        '%kernel.project_dir%/templates/layout/components': components
     default_path: '%kernel.project_dir%/templates'
+    form_themes: ['bootstrap_5_layout.html.twig']
+    globals:
+        current_app: '@App\Doctrine\Entity\AppDomain'
 
 when@test:
     twig:

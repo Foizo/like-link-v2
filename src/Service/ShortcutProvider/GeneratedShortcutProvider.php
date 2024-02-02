@@ -13,22 +13,23 @@ class GeneratedShortcutProvider extends AbstractShortcutProvider
     }
 
 
-    function getShortCut(ShortUrlRequest $app_shortcut_request): ShortUrlRequest
+    function getShortCut(ShortUrlRequest $short_url_request): ShortUrlRequest
     {
         $shortcut_iteration = 0;
         do {
-            if ($shortcut_iteration++ > GeneratedShortcut::SHORTCUT_MAX_GENERATE_ITERATION) {
+            $shortcut_iteration++;
+            if ($shortcut_iteration > GeneratedShortcut::SHORTCUT_MAX_GENERATE_ITERATION) {
                 $this->logger->error(__CLASS__ . ": exceeded max count of iteration");
-                $app_shortcut_request->valid_request = false;
-                return $app_shortcut_request;
+                $short_url_request->valid_request = false;
+                return $short_url_request;
             }
 
-            $app_shortcut_request->shortcut = $this->generateShortcut();
+            $short_url_request->shortcut = $this->generateShortcut();
 
-        } while ($this->isUniqueShortcut($app_shortcut_request));
+        } while ($this->isExistUniqueShortcut($short_url_request));
 
-        $this->logger->info(__CLASS__ . ": generated shortcut is unique", ['shortcut' => $app_shortcut_request->shortcut]);
-        return $app_shortcut_request;
+        $this->logger->info(__CLASS__ . ": generated shortcut is unique", ['shortcut' => $short_url_request->shortcut]);
+        return $short_url_request;
     }
 
 

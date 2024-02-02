@@ -9,6 +9,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Throwable;
 
 #[AsCommand(
     name: 'app:short-url',
@@ -58,7 +59,11 @@ class ShortUrlCommand extends AbstractCommand
             $short_url_request->customer_shortcut = true;
         }
 
-        $response = $this->short_url_creator->shortUrl($short_url_request);
+        try {
+            $this->short_url_creator->shortUrl($short_url_request);
+        } catch (Throwable $e) {
+            $output->writeln($e->getMessage());
+        }
 
         return self::SUCCESS;
     }

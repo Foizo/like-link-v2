@@ -23,6 +23,7 @@ services:
             - '../src/Models/'
             - '../src/SharedModels/'
             - '../src/Enums/'
+            - '../src/Exceptions/'
             - '../src/Kernel.php'
 
     # add more service definitions when explicit configuration is needed

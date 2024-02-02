@@ -5,6 +5,15 @@ import './bootstrap.js';
  * This file will be included onto the page via the importmap() Twig function,
  * which should already be in your base.html.twig.
  */
+import 'bootstrap';
+
+import './styles/aos.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/bootsrap-icons.css';
+import './styles/glightbox.css';
+import './styles/remixicon.css';
+import './styles/swiper.css';
 import './styles/app.css';
 
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+import 'isotope-layout';
+import './bootstrap_made.js';

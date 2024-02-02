@@ -27,4 +27,47 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    'bootstrap' => [
+        'version' => '5.3.2',
+    ],
+    '@popperjs/core' => [
+        'version' => '2.11.8',
+    ],
+    'bootstrap/dist/css/bootstrap.min.css' => [
+        'version' => '5.3.2',
+        'type' => 'css',
+    ],
+    '@srexi/purecounterjs' => [
+        'version' => '1.5.0',
+    ],
+    'aos' => [
+        'version' => '2.3.4',
+    ],
+    'swiper' => [
+        'version' => '11.0.5',
+    ],
+    'glightbox' => [
+        'version' => '3.2.0',
+    ],
+    'isotope-layout' => [
+        'version' => '3.0.6',
+    ],
+    'outlayer' => [
+        'version' => '2.1.1',
+    ],
+    'get-size' => [
+        'version' => '2.0.3',
+    ],
+    'desandro-matches-selector' => [
+        'version' => '2.0.2',
+    ],
+    'fizzy-ui-utils' => [
+        'version' => '2.0.7',
+    ],
+    'masonry-layout' => [
+        'version' => '4.2.2',
+    ],
+    'ev-emitter' => [
+        'version' => '1.1.1',
+    ],
 ];

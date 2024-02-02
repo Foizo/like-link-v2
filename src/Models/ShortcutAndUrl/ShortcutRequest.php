@@ -1,7 +1,11 @@
 <?php declare(strict_types=1);
 namespace App\Models\ShortcutAndUrl;
 
-class ShortcutRequest extends AbstractRequest
-{
+use Symfony\Component\HttpFoundation\Request;
 
+class ShortcutRequest
+{
+    public Request $request;
+
+    public string $shortcut;
 }

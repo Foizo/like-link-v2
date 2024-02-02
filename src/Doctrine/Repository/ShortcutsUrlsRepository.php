@@ -15,9 +15,9 @@ class ShortcutsUrlsRepository extends DefaultRepository
     function findOneByGeneratedOrCustomerShortcut(AppDomain $appDomain, string $shortcut, bool $allow_cache = true): ?ShortcutUrl
     {
         $qb = $this->createQueryBuilder('short')
-            ->where('short.short.app_domain = :app_domain')
-            ->andWhere('short.short.generated_shortcut = :shortcut OR short.customer_shortcut = :shortcut')
-            ->join('shor.customer_url', 'url')
+            ->where('short.app_domain = :app_domain')
+            ->andWhere('short.generated_shortcut = :shortcut OR short.customer_shortcut = :shortcut')
+            ->join('short.customer_url', 'url')
             ->select('short, url')
             ->setParameters([
                 'app_domain' => $appDomain,
