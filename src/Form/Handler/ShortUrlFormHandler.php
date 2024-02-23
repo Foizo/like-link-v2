@@ -44,7 +44,7 @@ class ShortUrlFormHandler
         if (in_array($short_url_request->shortcut, ShortUrl::BLOCKED_CUSTOMER_SHORTCUTS)) {
             $short_url_response = new ShortUrlResponse();
             $short_url_response->valid_response = false;
-            $short_url_response->errors = [ShortUrlForm::SHORTCUT_CHILD_NAME => ['Toto ne']];
+            $short_url_response->errors = [ShortUrlForm::SHORTCUT_CHILD_NAME => 'Toto ne'];
             return $short_url_response;
         }
 

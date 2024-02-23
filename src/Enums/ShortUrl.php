@@ -11,6 +11,7 @@ class ShortUrl
     const BLOCKED_CUSTOMER_SHORTCUTS = [
         'likelink',
         'like-link',
+        'your-like-link',
         CustomerShortcut::NOT_SPECIFIED,
         GeneratedShortcut::NOT_GENERATED,
     ];

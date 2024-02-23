@@ -50,7 +50,7 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
 
         if (!$short_url_request->valid_request) {
             $short_url_response->valid_response = false;
-            $short_url_response->errors = [ShortUrlForm::SHORTCUT_CHILD_NAME => "Given ShortUrlRequest is not valid for create shortcut! [shortcut: {$short_url_request->shortcut}]"];
+            $short_url_response->errors = [ShortUrlForm::SUBMIT_CHILD_NAME => "Něco se nepovedlo. Zkuste to prosím znovu."];
             return $short_url_response;
         }
 
@@ -58,7 +58,7 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
             $shortcut_url = $this->createShortcut($short_url_request);
         } catch (Throwable $e) {
             $short_url_response->valid_response = false;
-            $short_url_response->errors = ['submit' => "Given ShortUrlRequest is not valid for create shortcut! [shortcut: {$short_url_request->shortcut}]"];
+            $short_url_response->errors = [ShortUrlForm::SUBMIT_CHILD_NAME => "Něco se nepovedlo. Zkuste to prosím znovu."];
             return $short_url_response;
         }
 
@@ -67,6 +67,7 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
 
         return  $short_url_response;
     }
+
 
     private function resolveExistShortUrlResponse(CustomerUrl $customer_url, ShortUrlRequest $short_url_request): ShortUrlResponse
     {
@@ -80,7 +81,7 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
                     $updated_shortcut_url = $this->createCustomerShortcutForExistUrl($short_url_request, $customer_url->shortcut_url);
                 } catch (Throwable $e) {
                     $short_url_response->valid_response = false;
-                    $short_url_response->errors = ['submit' => "resolveExistShortUrlResponse-createCustomerShortcutForExistUrl error"];
+                    $short_url_response->errors = [ShortUrlForm::SUBMIT_CHILD_NAME => "Pro tuto URL se nepodařilo vytvořit alias"];
                     return $short_url_response;
                 }
 
@@ -103,7 +104,7 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
                     $updated_shortcut_url = $this->createGeneratedShortcutForExistUrl($short_url_request, $customer_url->shortcut_url);
                 } catch (Throwable $e) {
                     $short_url_response->valid_response = false;
-                    $short_url_response->errors = ['submit' => "resolveExistShortUrlResponse-createGeneratedShortcutForExistUrl error"];
+                    $short_url_response->errors = [ShortUrlForm::SUBMIT_CHILD_NAME => "Něco se nepovedlo. Zkuste to prosím znovu."];
                     return $short_url_response;
                 }
 
@@ -118,7 +119,6 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
         $short_url_response->redirect_link = $this->resolveRedirectLink($short_url_request);
         return $short_url_response;
     }
-
 
     /** @throws Exception */
     private function createShortcut(ShortUrlRequest $short_url_request): ShortcutUrl

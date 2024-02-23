@@ -6,18 +6,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 d-flex flex-column justify-content-center">
-                        <h1 data-aos="fade-up">Likelink is free and easiest way to short your URLs</h1>
-                        <h2 data-aos="fade-up" data-aos-delay="400">Copy your long URL and easily create Likelink</h2>
+                        <h1 data-aos="fade-up">Likelink is the free and easiest way to short URLs</h1>
+                        <h2 data-aos="fade-up" data-aos-delay="400">Enter a long link and easily create your Likelink!</h2>
                         <div data-aos="fade-up" data-aos-delay="600">
-                            <div class="text-center text-lg-start">
-                                <a href="#about" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                                    <span>Get Started</span>
-                                    <i class="bi bi-arrow-right"></i>
-                                </a>
-                                <div class="col-lg-6" {{ stimulus_controller('short_url_form') }}>
-                                    {{ form(short_url_form, {'attr': {'id': 'short-url-form'}}) }}
-                                </div>
-                            </div>
+                            {{  include('parts/short_url_form.html.twig') }}
                         </div>
                     </div>
                     <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
@@ -28,16 +20,12 @@
         </section>
 
         <section id="values" class="values">
-
             <div class="container" data-aos="fade-up">
-
                 <header class="section-header">
                     <h2>How To</h2>
                     <p>How does it work</p>
                 </header>
-
                 <div class="row">
-
                     <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
                         <div class="box">
                             <img src="{{ asset('images/values-1.png') }}" class="img-fluid" alt="">
@@ -63,7 +51,6 @@
                     </div>
                 </div>
             </div>
-
 
             <section id="counts" class="counts">
             <div class="container" data-aos="fade-up">

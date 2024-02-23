@@ -38,6 +38,13 @@ class IndexAppController extends AbstractAppController
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $short_url_response = $this->short_url_form_handler->handleForm($form);
+
+            if ($short_url_response->valid_response) {
+                $session = $this->getSession();
+                $shorting_history = $session->get('shorting-history');
+                $session->set('shorting-history', [$this->current_app->identifier => $short_url_response->redirect_link]);
+            }
+
             return new JsonResponse($short_url_response);
         }
 

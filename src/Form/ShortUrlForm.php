@@ -23,19 +23,29 @@ class ShortUrlForm extends AbstractType
                 self::DESTINATION_URL_CHILD_NAME,
                 TextType::class,
                 [
-                    'label' => 'URL for short'
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'enter your https://..so.looong/..link',
+                    ]
                 ]
             )
             ->add(
                 self::SHORTCUT_CHILD_NAME,
                 TextType::class,
                 [
-                    'required' => false
+                    'label' => false,
+                    'required' => false,
+                    'attr' => [
+                        'placeholder' => 'your-like-link (optional)',
+                    ]
                 ]
             )
             ->add(
                 self::SUBMIT_CHILD_NAME,
-                SubmitType::class
+                SubmitType::class,
+                [
+                    'label' => 'CREATE LIKELINK'
+                ]
             );
     }
 
