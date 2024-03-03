@@ -6,7 +6,6 @@ use App\Doctrine\Entity\CustomerUrl;
 use App\Doctrine\Entity\ShortcutUrl;
 use App\Doctrine\Repository\CustomerUrlsRepository;
 use App\Doctrine\Repository\ShortcutsUrlsRepository;
-use App\Models\ShortcutAndUrl\ShortcutRequest;
 use App\Models\ShortcutAndUrl\ShortUrlRequest;
 
 abstract class AbstractShortcutAndUrlManager
@@ -22,9 +21,9 @@ abstract class AbstractShortcutAndUrlManager
         return $this->customer_repo->findOneByDestinationUrlHash($this->current_app, $short_url_request->destination_url_md5_hash);
     }
 
-    protected function existShortcut(ShortcutRequest $shortcut_response): ?ShortcutUrl
+    protected function existShortcut(string $shortcut): ?ShortcutUrl
     {
-        return $this->shortcut_repo->findOneByGeneratedOrCustomerShortcut($this->current_app, $shortcut_response->shortcut);
+        return $this->shortcut_repo->findOneByGeneratedOrCustomerShortcut($this->current_app, $shortcut);
     }
 
     protected function resolveRedirectLink(ShortUrlRequest $short_url_request): string {

@@ -5,15 +5,20 @@ use App\Models\ShortcutAndUrl\ShortUrlRequest;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ShortUrlForm extends AbstractType
 {
     const DESTINATION_URL_CHILD_NAME = 'destination_url';
     const SHORTCUT_CHILD_NAME = 'shortcut';
     const SUBMIT_CHILD_NAME = 'submit';
+
+
+    public function __construct(
+        private TranslatorInterface $translator
+    ){}
 
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -25,7 +30,7 @@ class ShortUrlForm extends AbstractType
                 [
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'enter your https://..so.looong/..link',
+                        'placeholder' => $this->translator->trans('short_form.destination_url.placeholder'),
                     ]
                 ]
             )

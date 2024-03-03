@@ -1,0 +1,13 @@
+layout:
+  title: 'Likelink.cz | Jednoduché zkácení URL adres'
+  description: 'Likelink je bezplatný a nejjednodušší způsob, jak zkrátit a sdílet vaše URL adresy.'
+  keywords: 'zkrať, zkrátit, sdílej, sdílet, url, odkaz, likelink'
+  og:
+    title: 'Likelink.cz | Jednoduché zkácení URL adres'
+    type: 'website'
+    description: 'Likelink je bezplatný a nejjednodušší způsob, jak zkrátit a sdílet vaše URL adresy.'
+
+short_form:
+  destination_url:
+    label: ''
+    placeholder: 'enter your https://..so.looong/..link'

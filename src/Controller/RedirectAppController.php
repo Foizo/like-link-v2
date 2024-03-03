@@ -1,26 +1,22 @@
 <?php declare(strict_types=1);
 namespace App\Controller;
 
-use App\Doctrine\Entity\AppDomain;
+use App\Service\RedirectManager;
+use App\Service\SeoContentProvider;
 use App\Service\ShortcutAndUrlManager\ShortcutManager;
-use JetBrains\PhpStorm\Pure;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
-class RedirectAppController extends AbstractAppController
+class RedirectAppController extends AbstractController
 {
-    #[Pure]
     function __construct(
-        AppDomain $app_domain,
-        RequestStack $request_stack,
-        protected ShortcutManager $shortcut_manager
-    )
-    {
-        parent::__construct($app_domain, $request_stack);
-    }
+        protected ShortcutManager $shortcut_manager,
+        protected RedirectManager $redirect_generator
+    ){}
+
 
     #[Route(
         path: '/{shortcut}',
@@ -28,8 +24,21 @@ class RedirectAppController extends AbstractAppController
         requirements: ['shortcut' => Requirement::ASCII_SLUG],
         methods: Request::METHOD_GET
     )]
-    function redirectByShortcut(string $shortcut)
+    function redirectByShortcut(Request $request, string $shortcut): Response
     {
-        return new Response();
+        $shortcut_response = $this->shortcut_manager->getUrl($shortcut);
+
+        if (!$shortcut_response->customer_url) {
+            throw $this->createNotFoundException('404');
+        }
+
+        $this->redirect_generator->createRecordOfRedirect($request, $shortcut_response->customer_url);
+
+        return $this->render(
+            view: 'redirect.html.twig',
+            parameters: [
+                'redirect_url' => $shortcut_response->destination_url
+            ]
+        );
     }
 }

@@ -1,0 +1,29 @@
+{% extends('@layout/redirect.layout.twig') %}
+{% block content %}
+<main id="main">
+    <section id="hero" class="hero d-flex align-items-center">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 d-flex flex-column justify-content-center">
+                    <h1>Likelink is the free and easiest way to short URLs</h1>
+                    <h2>Přesměrování na</h2>
+                    <p>{{ redirect_url|raw }}</p>
+                </div>
+                <div class="col-lg-6 hero-img">
+                    <img src="{{ asset('images/hero-img.png') }}" class="img-fluid" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+{% block script %}
+{#    <script>#}
+{#        window.setTimeout(function () {#}
+{#            window.location.href = "{{ redirect_url|raw }}";#}
+{#            },#}
+{#            1000#}
+{#        );#}
+{#    </script>#}
+{% endblock %}

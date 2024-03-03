@@ -4,12 +4,14 @@ namespace App\Service;
 use App\Doctrine\Entity\AppDomain;
 use App\Doctrine\Repository\AppDomainsRepository;
 use RuntimeException;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class CurrentAppDomainResolver
 {
     protected AppDomain $current_app_domain;
 
     function __construct(
+        #[Autowire("%env(CURRENT_APP_IDENTIFIER)%")]
         private readonly string $current_app_identifier,
         private readonly AppDomainsRepository $app_repo
     ){}

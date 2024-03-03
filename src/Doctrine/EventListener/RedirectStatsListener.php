@@ -5,11 +5,11 @@ use App\Doctrine\Entity\AppDomain;
 use App\Doctrine\Entity\CustomerUrl;
 use App\Doctrine\Entity\CustomerUrl\CustomerUrlRedirect;
 use DateTime;
-use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Event\PostPersistEventArgs;
 use Doctrine\ORM\Events;
 
-#[AsEntityListener(event: Events::postPersist, method: 'postPersist', entity: CustomerUrlRedirect::class)]
+#[AsDoctrineListener(event: Events::postPersist)]
 class RedirectStatsListener
 {
     function postPersist(PostPersistEventArgs $args): void

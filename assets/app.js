@@ -10,9 +10,9 @@ import 'bootstrap';
 import './styles/aos.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/bootsrap-icons.css';
-import './styles/glightbox.css';
-import './styles/remixicon.css';
-import './styles/swiper.css';
+//import './styles/glightbox.css';
+//import './styles/remixicon.css';
+//import './styles/swiper.css';
 import './styles/app.css';
 
 import 'isotope-layout';

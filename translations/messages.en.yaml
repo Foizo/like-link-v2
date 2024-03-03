@@ -1,0 +1,13 @@
+layout:
+  title: 'Likelink | Easy way to short URLs'
+  description: 'Likelink is the free and easiest way to short URLs.'
+  keywords: 'short, shorten, share, url, link, likelink'
+  og:
+    title: 'Likelink - Easy way to short URLs'
+    type: 'website'
+    description: 'Likelink is the free and easiest way to short URLs.'
+
+short_form:
+  destination_url:
+    label: ''
+    placeholder: 'enter your https://..so.looong/..link'

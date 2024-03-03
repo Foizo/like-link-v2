@@ -5,6 +5,7 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     globals:
         current_app: '@App\Doctrine\Entity\AppDomain'
+        seo_content: '@App\Models\SEO\SeoContent'
 
 when@test:
     twig:

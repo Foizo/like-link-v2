@@ -1,0 +1,9 @@
+{% extends('@layout/layout.twig') %}
+
+{% block javascripts %}
+    {% block importmap %}{{ importmap('other') }}{% endblock %}
+{% endblock %}
+
+{% block body %}
+    {% block content %}{% endblock %}
+{% endblock %}

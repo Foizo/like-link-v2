@@ -33,7 +33,6 @@ class ShortcutUrl extends ObjectWithoutMagicAccess
     public CustomerShortcut|string $customer_shortcut = CustomerShortcut::NOT_SPECIFIED;
 
     /** @see CustomerUrl::$shortcut_url */
-    #[ORM\OneToOne(mappedBy: 'shorted_url')]
-    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    #[ORM\OneToOne(mappedBy: 'shortcut_url')]
     public CustomerUrl $customer_url;
 }

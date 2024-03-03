@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html lang="{{ app.request.locale }}">
+<html lang="{{ current_app.language }}">
     <head>
 
-        <title>FlexStart Bootstrap Template - Index</title>
+        <title>{{ seo_content.title }}</title>
 
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="" name="description">
-        <meta content="" name="keywords">
+        <meta content="{{ seo_content.description }}" name="description">
+        <meta content="{{ seo_content.keywords }}" name="keywords">
+
+        <meta property="og:title" content="{{ seo_content.og_title }}" />
+        <meta property="og:description" content="{{ seo_content.og_description }}" />
+        <meta property="og:type" content="{{ seo_content.og_type }}" />
+        <meta property="og:url" content="{{ seo_content.og_url }}" />
+        <meta property="og:image" content="{{ seo_content.base_url }}{{ asset('images/favicon.png') }}" />
 
         <link rel="icon" href="{{ asset('images/favicon.png') }}">
         <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">
@@ -16,17 +22,10 @@
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i">
         {% endblock %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
+        {% block javascripts %}{% endblock %}
     </head>
     <body>
-        {% include('@components/header.html.twig') %}
-
-        {% block content %}{% endblock %}
-
-        {% include('@components/footer.html.twig') %}
-
-        <a href="#hero" class="back-to-top d-flex align-items-center justify-content-center scrollto"><i class="bi bi-arrow-up-short"></i></a>
+    {% block body %}{% endblock %}
     </body>
+    {% block script %}{% endblock %}
 </html>

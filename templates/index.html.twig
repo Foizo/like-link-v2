@@ -1,15 +1,14 @@
-{% extends('@layout/layout.twig') %}
+{% extends('@layout/index.layout.twig') %}
 {% block content %}
     <main id="main">
         <section id="hero" class="hero d-flex align-items-center">
-
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 d-flex flex-column justify-content-center">
                         <h1 data-aos="fade-up">Likelink is the free and easiest way to short URLs</h1>
                         <h2 data-aos="fade-up" data-aos-delay="400">Enter a long link and easily create your Likelink!</h2>
                         <div data-aos="fade-up" data-aos-delay="600">
-                            {{  include('parts/short_url_form.html.twig') }}
+                            {{  include('parts/short_url.html.twig') }}
                         </div>
                     </div>
                     <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
@@ -51,8 +50,9 @@
                     </div>
                 </div>
             </div>
+        </section>
 
-            <section id="counts" class="counts">
+        <section id="counts" class="counts">
             <div class="container" data-aos="fade-up">
 
                 <div class="row gy-4">
@@ -62,7 +62,7 @@
                             <i class="bi bi-emoji-smile" style="color: #15be56;"></i>
                             <div>
                                 <span data-purecounter-start="0" data-purecounter-end="{{ current_app.stats.urls_count }}" data-purecounter-duration="1" class="purecounter"></span>
-                                <p>Happy Clients</p>
+                                <p>Created LikeLinks</p>
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,6 @@
         </section>
 
         <section id="faq" class="faq">
-
             <div class="container" data-aos="fade-up">
 
                 <header class="section-header">
@@ -184,9 +183,7 @@
             </div>
         </section>
 
-
-            <section id="contact" class="contact">
-
+        <section id="contact" class="contact">
             <div class="container" data-aos="fade-up">
 
                 <header class="section-header">

@@ -9,12 +9,13 @@ use App\Service\ShortcutAndUrlManager\ShortUrlManager;
 use Exception;
 use Symfony\Component\Form\FormInterface;
 
-class ShortUrlFormHandler
+class ShortUrlFormHandler extends AbstractFormHandler
 {
     function __construct(
         protected ShortUrlManager $short_url_manager
     ){}
 
+    /** @throws Exception */
     function handleForm(FormInterface $form): ShortUrlResponse
     {
         if (!$form->isValid()) {
@@ -33,7 +34,7 @@ class ShortUrlFormHandler
         $short_url_request = $form->getData();
 
         if (!$short_url_request instanceof ShortUrlRequest) {
-            throw new Exception('Form handler use different data model');
+            throw new Exception(__CLASS__ . ' use different data model');
         }
 
         $short_url_request->createDestinationUrlHash();
@@ -49,22 +50,5 @@ class ShortUrlFormHandler
         }
 
         return $this->short_url_manager->shortUrl($short_url_request);
-    }
-
-    private function getFormErrorMessages(FormInterface $form): array
-    {
-        $errors = [];
-
-        foreach ($form->getErrors() as $error) {
-            $errors[] = $error->getMessage();
-        }
-
-        foreach ($form->all() as $child) {
-            if (!$child->isValid()) {
-                $errors[$child->getName()] = $this->getFormErrorMessages($child);
-            }
-        }
-
-        return $errors;
     }
 }
