@@ -7,7 +7,21 @@ layout:
     type: 'website'
     description: 'Likelink je bezplatný a nejjednodušší způsob, jak zkrátit a sdílet vaše URL adresy.'
 
+header:
+  nav:
+    home: 'Domů'
+    howto: 'Jak?'
+    faq: 'Faq'
+    contact: 'Kontakt'
+
+footer:
+  copyright: 'Všechna práva vyhrazena.'
+
+index:
+  h1: 'Likelink je jednoduchá cesta, jak zkrátit vaše URL adresy.'
+  h2: 'Vložte dlouhý odkaz a jednoduše si vytvořte svůj Likelink!'
+
 short_form:
   destination_url:
     label: ''
-    placeholder: 'enter your https://..so.looong/..link'
+    placeholder: 'https://...dlooo.uhý/..odkaz'

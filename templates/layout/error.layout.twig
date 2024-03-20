@@ -7,7 +7,7 @@
 {% block body %}
     <header id="header" class="header fixed-top">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-            <a href="https://{{ current_app.domain }}" class="logo d-flex align-items-center scrollto">
+            <a href="{{ path('index') }}" class="logo d-flex align-items-center scrollto">
                 <img src="{{ asset('images/logo.png') }}" alt="{{ current_app.domain }}">
             </a>
         </div>
@@ -18,9 +18,9 @@
                 <div class="row">
                     <div class="col-lg-6 d-flex flex-column justify-content-center">
                         {% block content %}{% endblock %}
-                        <p>Pokud jste se dostali sem, můžete nás kontaktovat na <a href="mailto:{{ current_app.contact_email }}">{{ current_app.contact_email }}</a></p>
+                        <p>Pokud jste se dostali sem, můžete nás o problému informovat na <a href="mailto:{{ current_app.contact_email }}">{{ current_app.contact_email }}</a></p>
                         <div class="col-md-12 error-button">
-                            <a href="https://{{ current_app.domain }}"><button type="submit">Přejít na hlavní stránku</button></a>
+                            <a href="{{ path('index') }}"><button type="submit">Přejít na hlavní stránku</button></a>
                         </div>
                     </div>
                     <div class="col-lg-6 hero-img">

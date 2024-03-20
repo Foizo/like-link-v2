@@ -15,7 +15,7 @@ class CustomerShortcutProvider extends AbstractShortcutProvider
     function getShortCut(ShortUrlRequest $short_url_request): ShortUrlRequest
     {
         if (!$short_url_request->shortcut) {
-            $short_url_request->valid_request= false;
+            $short_url_request->valid_request = false;
             $this->logger->error(__CLASS__ . ": given customer shortcut is null");
         }
 

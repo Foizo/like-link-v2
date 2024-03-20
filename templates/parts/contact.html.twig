@@ -1,0 +1,40 @@
+<section id="contact" class="contact" data-controller="contact">
+    <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+            <h2>Contact</h2>
+            <p>Contact Us</p>
+        </header>
+
+        <div class="row gy-4">
+            <div class="col-lg-6">
+                {{ form_start(contact_form, {'attr': {'class': 'php-email-form', 'data-contact-target': 'form'}}) }}
+                <div class="row gy-4">
+
+                    <div class="col-md-6">
+                        {{ form_row(contact_form.name, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <div class="col-md-6 ">
+                        {{ form_row(contact_form.email, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <div class="col-md-12">
+                        {{ form_row(contact_form.subject, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <div class="col-md-12">
+                        {{ form_row(contact_form.message, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <div class="col-md-12 text-center">
+                        <div class="loading" data-contact-target="spinner">Loading</div>
+                        <div class="sent-message" data-contact-target="message">Your message has been sent. Thank you!</div>
+                        {{ form_row(contact_form.submit) }}
+                    </div>
+                </div>
+                {{ form_end(contact_form) }}
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,35 +1,31 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-    static targets = ['form','shortcut','resultLink','shortAnotherUrl'];
+    static targets = ['form', 'spinner', 'message'];
 
     connect() {
         this.formTarget.addEventListener('submit',  function(e) {
             e.preventDefault();
-
+            this.spinnerTarget.style.display = 'inline-block';
             fetch(this.formTarget.action, {
                 body: new FormData(e.target),
                 method: 'POST'
             })
                 .then(response => response.json())
                 .then(json => {
-                   this.handleResponse(json);
+                    this.handleResponse(json);
                 });
-        }.bind(this));
-
-        this.shortAnotherUrlTarget.addEventListener('click',  function(e) {
-            e.preventDefault();
-            this.openShortUrl();
         }.bind(this));
     };
 
 
     handleResponse(response) {
         this.removeErrors();
+        this.spinnerTarget.style.display = 'none';
 
         switch(response.valid_response) {
             case true:
-                this.handleShortUrl(response)
+                this.handleSuccess(response)
                 break;
             case false:
                 this.handleErrors(response.errors)
@@ -37,9 +33,15 @@ export default class extends Controller {
         }
     }
 
-    handleShortUrl(response) {
-        this.hideShortUrl();
-        this.openShortcut(response);
+    handleSuccess(response) {
+        this.messageTarget.style.display = 'inline-block';
+        setTimeout(
+            function () {
+                this.formTarget.reset();
+                this.messageTarget.style.display = 'none';
+            }.bind(this),
+            3000
+        );
     }
 
     handleErrors(errors) {
@@ -48,7 +50,7 @@ export default class extends Controller {
         }
 
         for (const key in errors) {
-            let element = document.querySelector(`#short_url_form_${key}`)
+            let element = document.querySelector(`#contact_form_${key}`)
             element.classList.add('is-invalid');
 
             let div = document.createElement('div');
@@ -65,27 +67,5 @@ export default class extends Controller {
 
         isInvalidElements.forEach(isInvalid => isInvalid.classList.remove('is-invalid'));
         invalidFeedbackElements.forEach(invalidFeedback=> invalidFeedback.remove());
-    }
-
-    openShortUrl() {
-        this.hideShortcut();
-        this.formTarget.reset();
-        this.formTarget.classList.remove('hide');
-        this.formTarget.classList.remove('unhide');
-    }
-
-    hideShortUrl() {
-        this.formTarget.classList.add('hide');
-    }
-
-    openShortcut(response) {
-        this.resultLinkTarget.value = response.redirect_link;
-        this.shortcutTarget.classList.remove('hide');
-        this.shortcutTarget.classList.add('unhide');
-    }
-
-    hideShortcut() {
-        this.shortcutTarget.classList.remove('unhide');
-        this.shortcutTarget.classList.add('hide');
     }
 }

@@ -7,7 +7,21 @@ layout:
     type: 'website'
     description: 'Likelink is the free and easiest way to short URLs.'
 
+header:
+  nav:
+    home: 'Home'
+    howto: 'How to?'
+    faq: 'Faq'
+    contact: 'Contact'
+
+footer:
+  copyright: 'All Rights Reserved.'
+
+index:
+  h1: 'Likelink is the free and easiest way to short URLs'
+  h2: 'Enter a long link and easily create your Likelink!'
+
 short_form:
   destination_url:
     label: ''
-    placeholder: 'enter your https://..so.looong/..link'
+    placeholder: 'https://..sooo.looong/..link'

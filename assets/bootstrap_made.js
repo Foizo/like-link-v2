@@ -9,7 +9,7 @@
 import AOS from "aos";
 import PureCounter from "@srexi/purecounterjs";
 import { Swiper } from "swiper";
-import GLightbox from "glightbox";
+//import GLightbox from "glightbox";
 
 (function() {
     "use strict";
@@ -289,6 +289,7 @@ import GLightbox from "glightbox";
             mirror: false
         });
     }
+
     window.addEventListener('load', () => {
         aos_init();
     });

@@ -5,8 +5,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 d-flex flex-column justify-content-center">
-                        <h1 data-aos="fade-up">Likelink is the free and easiest way to short URLs</h1>
-                        <h2 data-aos="fade-up" data-aos-delay="400">Enter a long link and easily create your Likelink!</h2>
+
+                        {{  include('parts/flash_messages.html.twig') }}
+
+                        <h1 data-aos="fade-up">{{ 'index.h1'|trans }}</h1>
+                        <h2 data-aos="fade-up" data-aos-delay="400">{{ 'index.h2'|trans }}</h2>
                         <div data-aos="fade-up" data-aos-delay="600">
                             {{  include('parts/short_url.html.twig') }}
                         </div>
@@ -183,47 +186,7 @@
             </div>
         </section>
 
-        <section id="contact" class="contact">
-            <div class="container" data-aos="fade-up">
+        {{  include('parts/contact.html.twig') }}
 
-                <header class="section-header">
-                    <h2>Contact</h2>
-                    <p>Contact Us</p>
-                </header>
-
-                <div class="row gy-4">
-                    <div class="col-lg-6">
-                        <form action="forms/contact.php" method="post" class="php-email-form">
-                            <div class="row gy-4">
-
-                                <div class="col-md-6">
-                                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
-                                </div>
-
-                                <div class="col-md-6 ">
-                                    <input type="email" class="form-control" name="email" placeholder="Your Email" required>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control" name="subject" placeholder="Subject" required>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
-                                </div>
-
-                                <div class="col-md-12 text-center">
-                                    <div class="loading">Loading</div>
-                                    <div class="error-message"></div>
-                                    <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                                    <button type="submit">Send Message</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 {% endblock %}
