@@ -1,0 +1,20 @@
+layout:
+  h1: 'Oops! Something went wrong...'
+  h2: 'Error'
+  main: 'If you got here, you can report problem to us at'
+  back: 'Go to main page'
+
+  error_403:
+    h1: 'Oops! Access denied...'
+    h2: 'Error 403'
+
+  error_404:
+    h1: 'Oops! There is nothing on this page...'
+    h2: 'Error 404'
+
+app:
+  unexpected_error: 'Something went wrong. Please try again.'
+  alias_error: 'Could not create custom shortcut for URL.'
+  no_alias_error: 'It is not possible to use a custom abbreviation for URL.'
+  blocked_alias_error: 'This shortcut cannot be used.'
+  blocked_domain_error: 'Likelink cannot be shortened again.'

@@ -2,6 +2,8 @@
 namespace App\Form;
 
 use App\Models\Contact\ContactRequest;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -26,7 +28,7 @@ class ContactForm extends AbstractType
                 options: [
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Your Name',
+                        'placeholder' => 'contact_form.name.placeholder',
                     ]
                 ]
             )
@@ -36,7 +38,7 @@ class ContactForm extends AbstractType
                 options: [
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Your Email',
+                        'placeholder' => 'contact_form.email.placeholder',
                     ]
                 ]
             )
@@ -46,7 +48,7 @@ class ContactForm extends AbstractType
                 options: [
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Subject',
+                        'placeholder' => 'contact_form.subject.placeholder',
                     ]
                 ]
             )
@@ -56,7 +58,7 @@ class ContactForm extends AbstractType
                 options: [
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Message',
+                        'placeholder' => 'contact_form.message.placeholder',
                         'rows' => 6
                     ]
                 ]
@@ -65,7 +67,17 @@ class ContactForm extends AbstractType
                 child: 'submit',
                 type: SubmitType::class,
                 options: [
-                    'label' => 'Send Message'
+                    'label' => 'contact_form.submit.label'
+                ]
+            )->add(
+                child: 'captcha',
+                type: Recaptcha3Type::class,
+                options: [
+                    'action_name' => 'contact',
+                    'constraints' => new Recaptcha3([
+                        'message' => 'karser_recaptcha3.message',
+                        'messageMissingValue' => 'karser_recaptcha3.message_missing_value',
+                    ]),
                 ]
             );
     }

@@ -1,16 +1,16 @@
 layout:
   title: 'Likelink.cz | Jednoduché zkácení URL adres'
-  description: 'Likelink je bezplatný a nejjednodušší způsob, jak zkrátit a sdílet vaše URL adresy.'
+  description: 'Likelink je bezplatný a jednoduchý způsob, jak zkrátit a sdílet vaše URL adresy.'
   keywords: 'zkrať, zkrátit, sdílej, sdílet, url, odkaz, likelink'
   og:
     title: 'Likelink.cz | Jednoduché zkácení URL adres'
     type: 'website'
-    description: 'Likelink je bezplatný a nejjednodušší způsob, jak zkrátit a sdílet vaše URL adresy.'
+    description: 'Likelink je bezplatný a jednoduchý způsob, jak zkrátit a sdílet vaše URL adresy.'
 
 header:
   nav:
     home: 'Domů'
-    howto: 'Jak?'
+    howto: 'Jak to funguje?'
     faq: 'Faq'
     contact: 'Kontakt'
 
@@ -20,8 +20,98 @@ footer:
 index:
   h1: 'Likelink je jednoduchá cesta, jak zkrátit vaše URL adresy.'
   h2: 'Vložte dlouhý odkaz a jednoduše si vytvořte svůj Likelink!'
+  section:
+    howto:
+      header:
+        title: 'Jak?'
+        text: 'Jak to funguje'
+      first_column:
+        title: 'Proč zkracovat odkaz?'
+        text: 'Krátká URL adresa se lépe zapamatuje a umožňuje snadno sdílet váš odkaz s ostatními, může také výrazně zlepšit návštěvnost vašeho obsahu. Využijte výše umístěný formulář a vytvořte si Likelink!'
+      second_column:
+        title: 'Ještě lepší Likelink!'
+        text: 'Při zkrácení URL adresy máte možnost svůj Likelink posunout ještě o něco dál. Do pole "Vlastní Likelink" zadejte svoji zkratku a vytvořte si tak Likelink podle svých představ. Toto pole není povinné, systém pak vygeneruje zkratku sám.'
+      third_column:
+        title: 'A co dál?'
+        text: 'Po odeslání formuláře dostanete svůj Likelink a záleží jen na vás co s ním bude dál. Máte možnost sdílet Likelink na sociálních sítích nebo jej zkopírovat do schránky a použít kde potřebujete. Poslední možností je pak vytvoření dalšího Likelinku.'
+    counts:
+      created: 'Vytvořených Likelinků'
+      redirect: 'Přesměrování'
+    faq:
+      header:
+        h2: 'F.A.Q'
+        text: 'Často kladené dotazy'
+      faq1:
+        h2: 'Co je to Likelink?'
+        text: 'Jednoduchý a bezplatný zkracovač, který převádí jakoukoli dlouhou adresu URL na kratší a čitelnější odkaz. Když uživatel klikne na zkrácenou verzi odkazu, je automaticky přesměrován na cílovou adresu. Krátká URL adresa je přesnější a lehce zapamatovatelná.'
+      faq2:
+        h2: 'Lze upravit vygenerovaný Likelink?'
+        text: 'Likelink s automaticky vygenerovaným odkazem můžete dodatečně upravit a vytvořit mu vlastní zkratku. Do formuláře pro vytvoření Likelinku vložte svůj původní dlouhý odkaz a doplňte požadovanou zkratku do pole "Vlastní Likelink". Pak už jen stačí formulář odeslat.'
+      faq3:
+        h2: 'Je možné zkrátit i Likelink?'
+        text: 'Vytvořený Likelink nelze už znovu zkrátit.'
+      faq4:
+        h2: 'Jak dlouho bude existovat můj Likelink?'
+        text: 'Vytvořený Likelink bude existovat a fungovat na věky. Dokud bude existovat samotná služba Likelink.'
+      faq5:
+        h2: 'Může dojit k blokaci nebo smazání Likelinku?'
+        text: 'Ano. Pokud cílový odkaz vykazuje nevhodný obsah, může být takový Likelink zablokován/smazán. Dalším důvodem k zablokování může být označení nevhodného odkazu prostřednistvím kontaktního formuláře nebo jiným způsobem provozovateli webu.'
+      faq6:
+        h2: 'Jaké informace aplikace Likelink zpracovává?'
+        text: 'Likelink využívá pouze data potřebná pro správnou funkčnost aplikace. Zaznámenává tedy pouze informace o vytvořeném Likelinku, cílovém odkazu a uskutečneném přesměrování. Likelink nezpracovává ani nevyužívá žádné marketingové/měřící informace uživatelů.'
+    contact:
+      header:
+        h2: 'Kontakt'
+        text: 'Kontaktujte nás'
 
 short_form:
   destination_url:
+    h5: 'Váš dlouhý odkaz'
     label: ''
     placeholder: 'https://...dlooo.uhý/..odkaz'
+  domain:
+    h5: 'Doména'
+  shortcut:
+    h5: 'Vlastní Likelink'
+    label: ''
+    placeholder: 'vlastni-like-link (nepovinný)'
+  submit:
+    label: 'VYTVOŘIT LIKELINK'
+
+shortcut:
+  result_link:
+    h5: 'Váš Likelink'
+  short_another:
+    tooltip: 'Zkrátit další odkaz'
+  share:
+    facebook:
+      tooltip: 'Sdílet na Facebooku'
+    twitter:
+      tooltip: 'Sdílet na X'
+    linkedin:
+      tooltip: 'Sdílet na LinkedIn'
+    copy:
+      tooltip: 'Kopírovat odkaz do schránky'
+
+contact_form:
+  name:
+    label: ''
+    placeholder: 'Vaše jméno'
+  email:
+    label: ''
+    placeholder: 'Váš email'
+  subject:
+    label: ''
+    placeholder: 'Předmět'
+  message:
+    label: ''
+    placeholder: 'Zpráva'
+  submit:
+    label: 'Odeslat zprávu'
+  spinner:
+    title: 'Odesílání'
+  success_message: 'Vaše zpráva byla odeslána. Děkujeme!'
+
+redirect:
+  h1: 'Likelink je jednoduchá cesta, jak zkrátit vaše URL adresy.'
+  h2: 'Probíhá řesměrování na'

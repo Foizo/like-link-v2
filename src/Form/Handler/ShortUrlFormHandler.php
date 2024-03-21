@@ -8,11 +8,14 @@ use App\Models\ShortcutAndUrl\ShortUrlResponse;
 use App\Service\ShortcutAndUrlManager\ShortUrlManager;
 use Exception;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ShortUrlFormHandler extends AbstractFormHandler
 {
     function __construct(
-        protected ShortUrlManager $short_url_manager
+        protected ShortUrlManager $short_url_manager,
+        protected TranslatorInterface $translator
     ){}
 
     /** @throws Exception */
@@ -45,7 +48,14 @@ class ShortUrlFormHandler extends AbstractFormHandler
         if (in_array($short_url_request->shortcut, ShortUrl::BLOCKED_CUSTOMER_SHORTCUTS)) {
             $short_url_response = new ShortUrlResponse();
             $short_url_response->valid_response = false;
-            $short_url_response->errors = [ShortUrlForm::SHORTCUT_CHILD_NAME => 'Toto ne'];
+            $short_url_response->errors = [ShortUrlForm::SHORTCUT_CHILD_NAME => $this->translator->trans('app.blocked_alias_error', domain: 'errors')];
+            return $short_url_response;
+        }
+
+        if (preg_match(ShortUrl::BLOCKED_DOMAINS_PATTERN, $short_url_request->destination_url)) {
+            $short_url_response = new ShortUrlResponse();
+            $short_url_response->valid_response = false;
+            $short_url_response->errors = [ShortUrlForm::DESTINATION_URL_CHILD_NAME=> $this->translator->trans('app.blocked_domain_error', domain: 'errors')];
             return $short_url_response;
         }
 

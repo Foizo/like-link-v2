@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-    static targets = ['form','shortcut','resultLink','shortAnotherUrl'];
+    static targets = ['form','shortcut','resultLink','shortAnotherUrl', 'copy'];
 
     connect() {
         this.formTarget.addEventListener('submit',  function(e) {
@@ -20,6 +20,11 @@ export default class extends Controller {
         this.shortAnotherUrlTarget.addEventListener('click',  function(e) {
             e.preventDefault();
             this.openShortUrl();
+        }.bind(this));
+
+        this.copyTarget.addEventListener('click',  function(e) {
+            e.preventDefault();
+            this.copyToClipboard();
         }.bind(this));
     };
 
@@ -79,6 +84,10 @@ export default class extends Controller {
     }
 
     openShortcut(response) {
+        const share_buttons = document.querySelectorAll(`#share_likelink`);
+
+        share_buttons.forEach(button => button.href = button.href.replace('%likelink%', encodeURIComponent(response.redirect_link)));
+
         this.resultLinkTarget.value = response.redirect_link;
         this.shortcutTarget.classList.remove('hide');
         this.shortcutTarget.classList.add('unhide');
@@ -87,5 +96,25 @@ export default class extends Controller {
     hideShortcut() {
         this.shortcutTarget.classList.remove('unhide');
         this.shortcutTarget.classList.add('hide');
+    }
+
+    copyToClipboard() {
+        const el = document.createElement('textarea');
+        el.value = this.resultLinkTarget.value
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        const selected =
+            document.getSelection().rangeCount > 0
+                ? document.getSelection().getRangeAt(0)
+                : false;
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        if (selected) {
+            document.getSelection().removeAllRanges();
+            document.getSelection().addRange(selected);
+        }
     }
 }

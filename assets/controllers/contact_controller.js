@@ -50,7 +50,8 @@ export default class extends Controller {
         }
 
         for (const key in errors) {
-            let element = document.querySelector(`#contact_form_${key}`)
+
+            let element = key === '0' ? document.querySelector(`#contact_form_captcha`) : document.querySelector(`#contact_form_${key}`);
             element.classList.add('is-invalid');
 
             let div = document.createElement('div');

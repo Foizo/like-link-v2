@@ -2,7 +2,6 @@
 namespace App\Controller;
 
 use App\Service\RedirectManager;
-use App\Service\SeoContentProvider;
 use App\Service\ShortcutAndUrlManager\ShortcutManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

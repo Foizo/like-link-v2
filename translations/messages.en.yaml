@@ -20,8 +20,98 @@ footer:
 index:
   h1: 'Likelink is the free and easiest way to short URLs'
   h2: 'Enter a long link and easily create your Likelink!'
+  section:
+    howto:
+      header:
+        title: 'How To'
+        text: 'How does it work'
+      first_column:
+        title: 'Why shorten link?'
+        text: 'Short URL is easier to remember and makes it easy to share your link with others, it can also significantly improve traffic to your content. Use form above and create Likelink!'
+      second_column:
+        title: 'Even better Likelink!'
+        text: 'By shortening URL, you have option to move your Likelink little further. Enter your abbreviation in "Custom Likelink" field and create Likelink according to your wishes. This field is not mandatory, system will then generate shortcut itself.'
+      third_column:
+        title: 'And what else?'
+        text: 'After submitting form, you will receive Likelink and it depends only on you what happens next with it. You have option to share Likelink on social networks or copy it to clipboard and use it wherever you need. Last option is to create another Likelink.'
+    counts:
+      created: 'Created LikeLinks'
+      redirect: 'Redirects'
+    faq:
+      header:
+        h2: 'F.A.Q'
+        text: 'Frequently Asked Question'
+      faq1:
+        h2: 'What is Likelink?'
+        text: 'Simple shortener that turns any long URL into shorter, more readable link. When user clicks on shortened version of link, they are automatically redirected to the destination address. Short URL is more accurate and easy to remember.'
+      faq2:
+        h2: 'Can I edit my generated Likelink?'
+        text: 'You can additionally edit a Likelink with an automatically generated link and create your own shortcut. In form for creating a Likelink, insert your original long link and fill in required abbreviation in the field "Custom Likelink". Then all you have to do is send the form.'
+      faq3:
+        h2: 'Is it possible to shorten Likelink as well?'
+        text: 'Created Likelink cannot be shortened again.'
+      faq4:
+        h2: 'How long will Likelink last?'
+        text: 'Created Likelink will exist and work forever. As long as Likelink service itself exists.'
+      faq5:
+        h2: 'Can it lead to blocking or deletion of Likelink?'
+        text: 'Yes. If target link shows inappropriate content, such Likelink may be blocked/deleted. Another reason for blocking is marking an inappropriate link through contact form or in another way by website operator.'
+      faq6:
+        h2: 'What information does Likelink process?'
+        text: 'Likelink uses only data necessary for the correct functionality of application. Therefore, it only records information about the created Likelink, target link and redirection. Likelink does not process or use any user marketing/measurement information.'
+    contact:
+      header:
+        h2: 'Contact'
+        text: 'Contact Us'
 
 short_form:
   destination_url:
+    h5: 'Your long link'
     label: ''
     placeholder: 'https://..sooo.looong/..link'
+  domain:
+    h5: 'Domain'
+  shortcut:
+    h5: 'Custom Likelink'
+    label: ''
+    placeholder: 'your-like-link (optional)'
+  submit:
+    label: 'CREATE LIKELINK'
+
+shortcut:
+  result_link:
+    h5: 'Your Likelink'
+  short_another:
+    tooltip: 'Short next link'
+  share:
+    facebook:
+      tooltip: 'Share on Facebook'
+    twitter:
+      tooltip: 'Share on X'
+    linkedin:
+      tooltip: 'Share on LinkedIn'
+    copy:
+      tooltip: 'Copy link to clipboard'
+
+contact_form:
+  name:
+    label: ''
+    placeholder: 'Your name'
+  email:
+    label: ''
+    placeholder: 'Your email'
+  subject:
+    label: ''
+    placeholder: 'Subject'
+  message:
+    label: ''
+    placeholder: 'Message'
+  submit:
+    label: 'Send Message'
+  spinner:
+    title: 'Loading'
+  success_message: 'Your message has been sent. Thank you!'
+
+redirect:
+  h1: 'Likelink is the free and easiest way to short URLs.'
+  h2: 'Redirecting to'

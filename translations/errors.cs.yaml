@@ -1,0 +1,20 @@
+layout:
+  h1: 'Oops! Něco se nepovedlo...'
+  h2: 'Chyba'
+  main: 'Pokud jste se dostali sem, můžete nás o problému informovat na'
+  back: 'Přejít na hlavní stránku'
+
+  error_403:
+    h1: 'Oops! Přístup odepřen...'
+    h2: 'Chyba 403'
+
+  error_404:
+    h1: 'Oops! Na této stránce nic není...'
+    h2: 'Chyba 404'
+
+app:
+  unexpected_error: 'Něco se nepovedlo. Zkuste to prosím znovu.'
+  alias_error: 'Pro uvedenou URL se nepodařilo vytvořit vlastní zkratku.'
+  no_alias_error: 'Pro uvedenou URL není možné použít vlastní zkratku.'
+  blocked_alias_error: 'Tuto zkratku nelze použít'
+  blocked_domain_error: 'Likelink nelze znovu zkrátit'

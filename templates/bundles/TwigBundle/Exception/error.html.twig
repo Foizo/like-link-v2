@@ -1,5 +1,6 @@
 {% extends('@layout/error.layout.twig') %}
+{% trans_default_domain "errors" %}
 {% block content %}
-    <h1>Oops! Něco se nepovedlo...</h1>
-    <h2>Chyba {{ status_code }}</h2>
+    <h1>{{ 'layout.h1'|trans }}</h1>
+    <h2>{{ 'layout.h2'|trans }} {{ status_code }}</h2>
 {% endblock %}

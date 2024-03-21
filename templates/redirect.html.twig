@@ -6,8 +6,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 d-flex flex-column justify-content-center">
-                    <h1>Likelink is the free and easiest way to short URLs</h1>
-                    <h2>Přesměrování na</h2>
+                    <h1>{{ 'redirect.h1'|trans }}</h1>
+                    <h2>{{ 'redirect.h2'|trans }}</h2>
                     <p>{{ redirect_url|raw }}</p>
                 </div>
                 <div class="col-lg-6 hero-img">
@@ -19,11 +19,11 @@
 </main>
 {% endblock %}
 {% block script %}
-{#    <script>#}
-{#        window.setTimeout(function () {#}
-{#            window.location.href = "{{ redirect_url|raw }}";#}
-{#            },#}
-{#            1000#}
-{#        );#}
-{#    </script>#}
+    <script>
+        window.setTimeout(function () {
+            window.location.href = "{{ redirect_url|raw }}";
+            },
+            1000
+        );
+    </script>
 {% endblock %}

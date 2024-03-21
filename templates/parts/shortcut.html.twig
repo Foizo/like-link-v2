@@ -1,14 +1,37 @@
 <div class="row gy-0 short-form hide" data-short-url-target="shortcut">
     <div class="row gy-0">
         <div class="col-md-12">
-            <h5><i class="bi bi-link-45deg"></i> Your Likelink</h5>
+            <h5><i class="bi bi-link-45deg"></i> {{ 'shortcut.result_link.h5'|trans }}</h5>
             <input type="text" class="form-control" data-short-url-target="resultLink" readonly="readonly">
         </div>
     </div>
-    <div class="row gy-2">
-        <div class="col-md-2">
-            <div><button type="submit" class="bi bi-caret-left-fill" data-short-url-target="shortAnotherUrl"></button>
-            </div>
+    <div class="row gy-2 gx-3">
+        <div class="share-list">
+            <ul>
+                <li>
+                    <div class="short-another">
+                        <button type="submit" class="bi bi-caret-left-fill" title="{{ 'shortcut.short_another.tooltip'|trans }}" data-short-url-target="shortAnotherUrl"></button>
+                    </div>
+                </li>
+                <li>
+                    <a id="share_likelink" href="https://www.facebook.com/sharer/sharer.php?u=%likelink%" target="_blank">
+                        <button type="submit" class="bi bi bi-facebook" title="{{ 'shortcut.share.facebook.tooltip'|trans }}"></button>
+                    </a>
+                </li>
+                <li>
+                    <a id="share_likelink" href="https://twitter.com/intent/tweet?url=%likelink%" target="_blank">
+                        <button type="submit" class="bi bi-twitter-x" title="{{ 'shortcut.share.twitter.tooltip'|trans }}"></button>
+                    </a>
+                </li>
+                <li>
+                    <a id="share_likelink" href="https://www.linkedin.com/shareArticle?mini=true&url=%likelink%" target="_blank">
+                        <button type="submit" class="bi bi-linkedin" title="{{ 'shortcut.share.linkedin.tooltip'|trans }}"></button>
+                    </a>
+                </li>
+                <li>
+                    <button type="submit" class="bi bi-copy" title="{{ 'shortcut.share.copy.tooltip'|trans }}" data-short-url-target="copy"></button>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

@@ -12,8 +12,14 @@
         <meta property="og:title" content="{{ seo_content.og_title|trans }}" />
         <meta property="og:description" content="{{ seo_content.og_description|trans }}" />
         <meta property="og:type" content="{{ seo_content.og_type|trans }}" />
-        <meta property="og:url" content="{{ seo_content.og_url|trans }}" />
-        <meta property="og:image" content="{{ seo_content.base_url }}{{ asset('images/favicon.png') }}" />
+        <meta property="og:url" content="{{ seo_content.og_url }}" />
+        <meta property="og:image" content="{{ seo_content.base_url }}{{ asset('images/og_likelink.png') }}" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="{{ seo_content.og_url }}" />
+        <meta property="twitter:title" content="{{ seo_content.og_title|trans }}" />
+        <meta property="twitter:description" content="{{ seo_content.og_description|trans }}" />
+        <meta property="twitter:image" content="{{ seo_content.base_url }}{{ asset('images/og_likelink.png') }}" />
 
         <link rel="icon" href="{{ asset('images/favicon.png') }}">
         <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">

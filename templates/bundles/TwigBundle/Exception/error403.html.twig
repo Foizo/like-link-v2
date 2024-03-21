@@ -1,5 +1,6 @@
 {% extends('@layout/error.layout.twig') %}
+{% trans_default_domain "errors" %}
 {% block content %}
-    <h1>Oops! Přístup odepřen...</h1>
-    <h2>Chyba 403</h2>
+    <h1>{{ 'layout.error_403.h1'|trans }}</h1>
+    <h2>{{ 'layout.error_403.h2'|trans }}</h2>
 {% endblock %}

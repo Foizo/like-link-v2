@@ -15,6 +15,7 @@ use App\Service\ShortcutProvider\CustomerShortcutProvider;
 use App\Service\ShortcutProvider\GeneratedShortcutProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
 
 class ShortUrlManager extends AbstractShortcutAndUrlManager
@@ -25,7 +26,8 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
         protected GeneratedShortcutProvider $generated_shortcut_provider,
         protected EntityManagerInterface $em,
         protected ShortcutsUrlsRepository $shortcut_repo,
-        protected CustomerUrlsRepository $customer_repo
+        protected CustomerUrlsRepository $customer_repo,
+        protected TranslatorInterface $translator
     )
     {
         parent::__construct($this->current_app, $this->shortcut_repo, $this->customer_repo);
@@ -50,7 +52,7 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
 
         if (!$short_url_request->valid_request) {
             $short_url_response->valid_response = false;
-            $short_url_response->errors = [ShortUrlForm::SUBMIT_CHILD_NAME => "Něco se nepovedlo. Zkuste to prosím znovu."];
+            $short_url_response->errors = [ShortUrlForm::SUBMIT_CHILD_NAME => $this->translator->trans('app.unexpected_error', domain: 'errors')];
             return $short_url_response;
         }
 
@@ -58,7 +60,7 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
             $shortcut_url = $this->createShortcut($short_url_request);
         } catch (Throwable $e) {
             $short_url_response->valid_response = false;
-            $short_url_response->errors = [ShortUrlForm::SUBMIT_CHILD_NAME => "Něco se nepovedlo. Zkuste to prosím znovu."];
+            $short_url_response->errors = [ShortUrlForm::SUBMIT_CHILD_NAME => $this->translator->trans('app.unexpected_error', domain: 'errors')];
             return $short_url_response;
         }
 
@@ -81,7 +83,7 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
                     $updated_shortcut_url = $this->createCustomerShortcutForExistUrl($short_url_request, $customer_url->shortcut_url);
                 } catch (Throwable $e) {
                     $short_url_response->valid_response = false;
-                    $short_url_response->errors = [ShortUrlForm::SUBMIT_CHILD_NAME => "Pro tuto URL se nepodařilo vytvořit alias"];
+                    $short_url_response->errors = [ShortUrlForm::DESTINATION_URL_CHILD_NAME=> $this->translator->trans('app.alias_error', domain: 'errors')];
                     return $short_url_response;
                 }
 
@@ -90,7 +92,7 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
 
                 if ($customer_url->shortcut_url->customer_shortcut !== $short_url_request->shortcut) {
                     $short_url_response->valid_response = false;
-                    $short_url_response->errors = [ShortUrlForm::SHORTCUT_CHILD_NAME => "Pro tuto URL není možné použít vlastní alias."];
+                    $short_url_response->errors = [ShortUrlForm::SHORTCUT_CHILD_NAME => $this->translator->trans('app.no_alias_error', domain: 'errors')];
                 }
 
                 $short_url_response->shortcut = $customer_url->shortcut_url->customer_shortcut;
@@ -104,7 +106,7 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
                     $updated_shortcut_url = $this->createGeneratedShortcutForExistUrl($short_url_request, $customer_url->shortcut_url);
                 } catch (Throwable $e) {
                     $short_url_response->valid_response = false;
-                    $short_url_response->errors = [ShortUrlForm::SUBMIT_CHILD_NAME => "Něco se nepovedlo. Zkuste to prosím znovu."];
+                    $short_url_response->errors = [ShortUrlForm::SUBMIT_CHILD_NAME => $this->translator->trans('app.unexpected_error', domain: 'errors')];
                     return $short_url_response;
                 }
 

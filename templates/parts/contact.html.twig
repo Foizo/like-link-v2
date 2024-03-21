@@ -2,8 +2,8 @@
     <div class="container" data-aos="fade-up">
 
         <header class="section-header">
-            <h2>Contact</h2>
-            <p>Contact Us</p>
+            <h2>{{ 'index.section.contact.header.h2'|trans }}</h2>
+            <p>{{ 'index.section.contact.header.text'|trans }}</p>
         </header>
 
         <div class="row gy-4">
@@ -28,8 +28,8 @@
                     </div>
 
                     <div class="col-md-12 text-center">
-                        <div class="loading" data-contact-target="spinner">Loading</div>
-                        <div class="sent-message" data-contact-target="message">Your message has been sent. Thank you!</div>
+                        <div class="loading" data-contact-target="spinner">{{ 'contact_form.spinner.title'|trans }}</div>
+                        <div class="sent-message" data-contact-target="message">{{ 'contact_form.success_message'|trans }}</div>
                         {{ form_row(contact_form.submit) }}
                     </div>
                 </div>

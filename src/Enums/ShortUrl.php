@@ -15,4 +15,6 @@ class ShortUrl
         CustomerShortcut::NOT_SPECIFIED,
         GeneratedShortcut::NOT_GENERATED,
     ];
+
+    const BLOCKED_DOMAINS_PATTERN = '~likelink~';
 }

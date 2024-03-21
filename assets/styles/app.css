@@ -729,6 +729,19 @@ section {
     padding: 10px 15px;
 }
 
+.short-url .short-form .share-list ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.short-url .short-form .share-list ul li {
+    padding: 10px 0 10px 10px;
+}
+
 .short-url .short-form button[type=submit] {
     background: #0A4B91;
     border: 0;
@@ -741,6 +754,14 @@ section {
 
 .short-url .short-form button[type=submit]:hover {
     background: #377BC4;
+}
+
+.short-url .short-form .short-another button[type=submit] {
+    background: #ee6c20;
+}
+
+.short-url .short-form .short-another button[type=submit]:hover {
+    background: #f8803f;
 }
 
 /*--------------------------------------------------------------
@@ -1068,4 +1089,16 @@ section {
 
 .error-button button[type=submit]:hover {
     background: #377BC4;
+}
+
+/* Move reCAPTCHA v3 badge to the left */
+
+.grecaptcha-badge {
+    width: 70px !important;
+    overflow: hidden !important;
+    transition: all 0.3s ease !important;
+    left: 4px !important;
+}
+.grecaptcha-badge:hover {
+    width: 256px !important;
 }

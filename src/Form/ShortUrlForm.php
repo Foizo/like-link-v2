@@ -5,6 +5,7 @@ use App\Models\ShortcutAndUrl\ShortUrlRequest;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,7 +20,7 @@ class ShortUrlForm extends AbstractType
         $builder
             ->add(
                 child: self::DESTINATION_URL_CHILD_NAME,
-                type: TextType::class,
+                type: UrlType::class,
                 options: [
                     'label' => false,
                     'attr' => [
@@ -34,7 +35,7 @@ class ShortUrlForm extends AbstractType
                     'label' => false,
                     'required' => false,
                     'attr' => [
-                        'placeholder' => 'your-like-link (optional)',
+                        'placeholder' => 'short_form.shortcut.placeholder',
                     ]
                 ]
             )
@@ -42,7 +43,7 @@ class ShortUrlForm extends AbstractType
                 child: self::SUBMIT_CHILD_NAME,
                 type: SubmitType::class,
                 options: [
-                    'label' => 'CREATE LIKELINK'
+                    'label' => 'short_form.submit.label'
                 ]
             );
     }
