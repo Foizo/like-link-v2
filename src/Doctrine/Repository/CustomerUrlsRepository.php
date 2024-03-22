@@ -9,8 +9,6 @@ use App\Doctrine\Repository\Common\DefaultRepository;
 class CustomerUrlsRepository extends DefaultRepository
 {
     public const ENTITY_CLASS = CustomerUrl::class;
-    const CACHE_TTL = 3600;
-    const CACHE_KEY_PREFIX = 'url-';
 
     function findOneByDestinationUrlHash(AppDomain $appDomain, string $destination_url_md5_hash): ?CustomerUrl
     {
@@ -22,7 +20,7 @@ class CustomerUrlsRepository extends DefaultRepository
             ->setParameters([
                 'app_domain' => $appDomain,
                 'url_hash' => $destination_url_md5_hash
-            ])
-            ->getQuery()->getOneOrNullResult();
+            ])->setMaxResults(1)
+            ->getQuery()->getResult();
     }
 }

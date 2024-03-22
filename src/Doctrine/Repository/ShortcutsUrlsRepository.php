@@ -9,8 +9,6 @@ use App\Doctrine\Repository\Common\DefaultRepository;
 class ShortcutsUrlsRepository extends DefaultRepository
 {
     public const ENTITY_CLASS = ShortcutUrl::class;
-    const CACHE_TTL = 3600;
-    const CACHE_KEY_PREFIX = 'shortcut-';
 
     function findOneByGeneratedOrCustomerShortcut(AppDomain $appDomain, string $shortcut): ?ShortcutUrl
     {
@@ -23,6 +21,7 @@ class ShortcutsUrlsRepository extends DefaultRepository
                 'app_domain' => $appDomain,
                 'shortcut' => $shortcut
             ])
-            ->getQuery()->getOneOrNullResult();
+            ->setMaxResults(1)
+            ->getQuery()->getResult();
     }
 }
