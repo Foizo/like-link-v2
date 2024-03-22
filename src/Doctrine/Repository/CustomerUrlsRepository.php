@@ -22,7 +22,7 @@ class CustomerUrlsRepository extends DefaultRepository
                 'url_hash' => $destination_url_md5_hash
             ])->getQuery()->getOneOrNullResult();
 
-        file_put_contents('result.txt', $result, FILE_APPEND | LOCK_EX);
+        file_put_contents(__DIR__ . '/result.txt', $result, FILE_APPEND | LOCK_EX);
 
         return $result;
     }
