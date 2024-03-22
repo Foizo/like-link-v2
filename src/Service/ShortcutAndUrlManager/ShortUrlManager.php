@@ -126,6 +126,8 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
     private function createShortcut(ShortUrlRequest $short_url_request): ShortcutUrl
     {
         try {
+            $this->em->beginTransaction();
+
             $customer_url = new CustomerUrl();
             $customer_url->app_domain = $this->current_app;
             $customer_url->destination_url = $short_url_request->destination_url;
@@ -160,6 +162,9 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
             $this->em->persist($shortcut_url);
 
             $this->em->flush();
+
+            $this->em->commit();
+            $this->em->clear();
         } catch (Throwable $e) {
             throw new Exception("Create ShortcutUrl fail! Error: {$e->getMessage()}");
         }
