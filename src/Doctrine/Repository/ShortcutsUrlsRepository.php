@@ -21,6 +21,6 @@ class ShortcutsUrlsRepository extends DefaultRepository
                 'app_domain' => $appDomain,
                 'shortcut' => $shortcut
             ])
-            ->getQuery()->useQueryCache(false)->getOneOrNullResult();
+            ->getQuery()->getOneOrNullResult();
     }
 }

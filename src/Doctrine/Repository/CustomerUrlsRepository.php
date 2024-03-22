@@ -12,7 +12,7 @@ class CustomerUrlsRepository extends DefaultRepository
 
     function findOneByDestinationUrlHash(AppDomain $appDomain, string $destination_url_md5_hash): ?CustomerUrl
     {
-        return $this->createQueryBuilder('url')
+        $result = $this->createQueryBuilder('url')
             ->where('url.app_domain = :app_domain')
             ->andWhere('url.destination_url_md5_hash = :url_hash')
             ->join('url.shortcut_url', 'short')
@@ -21,5 +21,9 @@ class CustomerUrlsRepository extends DefaultRepository
                 'app_domain' => $appDomain,
                 'url_hash' => $destination_url_md5_hash
             ])->getQuery()->getOneOrNullResult();
+
+        file_put_contents('result.txt', $result, FILE_APPEND | LOCK_EX);
+
+        return $result;
     }
 }

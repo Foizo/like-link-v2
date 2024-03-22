@@ -188,7 +188,6 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
 
             $this->em->flush();
             $this->em->commit();
-            $this->em->clear();
         } catch (Throwable $e) {
             throw new Exception("Create generated shortcut on exist url fail! Error: {$e->getMessage()}");
         }
@@ -213,7 +212,6 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
 
             $this->em->flush();
             $this->em->commit();
-            $this->em->clear();
         } catch (Throwable $e) {
             throw new Exception("Create customer shortcut on exist url fail! Error: {$e->getMessage()}");
         }
