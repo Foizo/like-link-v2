@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Throwable;
 
@@ -42,7 +43,7 @@ class IndexAppController extends AbstractController
             try {
                 $short_url_response = $this->short_url_form_handler->handleForm($short_url_form);
             } catch (Throwable $e) {
-                throw new RuntimeException("ShortUrl Form Handler error: {$e->getMessage()}");
+                throw new HttpException(500, "ShortUrl Form Handler error: {$e->getMessage()}");
             }
 
             return new JsonResponse($short_url_response);

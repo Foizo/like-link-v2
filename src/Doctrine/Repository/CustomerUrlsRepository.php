@@ -12,8 +12,6 @@ class CustomerUrlsRepository extends DefaultRepository
 
     function findOneByDestinationUrlHash(AppDomain $appDomain, string $destination_url_md5_hash): ?CustomerUrl
     {
-        $this->_em->getConfiguration()->getResultCache()->clear();
-
         return $this->createQueryBuilder('url')
             ->where('url.app_domain = :app_domain')
             ->andWhere('url.destination_url_md5_hash = :url_hash')
@@ -22,6 +20,6 @@ class CustomerUrlsRepository extends DefaultRepository
             ->setParameters([
                 'app_domain' => $appDomain,
                 'url_hash' => $destination_url_md5_hash
-            ])->getQuery()->getResult();
+            ])->getQuery()->useQueryCache(false)->getOneOrNullResult();
     }
 }
