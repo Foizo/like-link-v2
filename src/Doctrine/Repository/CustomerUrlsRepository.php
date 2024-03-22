@@ -20,6 +20,6 @@ class CustomerUrlsRepository extends DefaultRepository
             ->setParameters([
                 'app_domain' => $appDomain,
                 'url_hash' => $destination_url_md5_hash
-            ])->getQuery()->setCacheable(false)->getOneOrNullResult();
+            ])->getQuery()->getOneOrNullResult();
     }
 }

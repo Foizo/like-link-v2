@@ -162,10 +162,9 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
             $this->em->persist($shortcut_url);
 
             $this->em->flush();
-
             $this->em->commit();
-            $this->em->clear();
         } catch (Throwable $e) {
+            $this->em->rollback();
             throw new Exception("Create ShortcutUrl fail! Error: {$e->getMessage()}");
         }
 
