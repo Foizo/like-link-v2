@@ -12,7 +12,7 @@ class CustomerUrlsRepository extends DefaultRepository
     const CACHE_TTL = 3600;
     const CACHE_KEY_PREFIX = 'url-';
 
-    function findOneByDestinationUrlHash(AppDomain $appDomain, string $destination_url_md5_hash): ?CustomerUrl
+    function findOneByDestinationUrlHash(AppDomain $appDomain, string $destination_url_md5_hash, bool $allow_cache = true): ?CustomerUrl
     {
         $qb = $this->createQueryBuilder('url')
             ->where('url.app_domain = :app_domain')
@@ -24,6 +24,10 @@ class CustomerUrlsRepository extends DefaultRepository
                 'url_hash' => $destination_url_md5_hash
             ])
             ->getQuery();
+
+        if ($allow_cache) {
+            $qb->enableResultCache(self::CACHE_TTL, $appDomain->identifier . '-' . self::CACHE_KEY_PREFIX . $destination_url_md5_hash);
+        };
 
         return $qb->getOneOrNullResult();
     }
