@@ -18,8 +18,7 @@ abstract class AbstractShortcutAndUrlManager
 
     protected function existUrl(ShortUrlRequest $short_url_request): ?CustomerUrl
     {
-        return $this->customer_repo->findOneBy(['app_domain' => $this->current_app, 'destination_url_md5_hash' => $short_url_request->destination_url_md5_hash]);
-        //return $this->customer_repo->findOneByDestinationUrlHash($this->current_app, $short_url_request->destination_url_md5_hash);
+        return $this->customer_repo->findOneByDestinationUrlHash($this->current_app, $short_url_request->destination_url_md5_hash);
     }
 
     protected function existShortcut(string $shortcut): ?ShortcutUrl
