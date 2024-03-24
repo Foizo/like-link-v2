@@ -8,7 +8,6 @@ use App\Models\ShortcutAndUrl\ShortUrlResponse;
 use App\Service\ShortcutAndUrlManager\ShortUrlManager;
 use Exception;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ShortUrlFormHandler extends AbstractFormHandler
