@@ -4,7 +4,6 @@ namespace App\Doctrine\Repository;
 use App\Doctrine\Entity\AppDomain;
 use App\Doctrine\Entity\CustomerUrl;
 use App\Doctrine\Repository\Common\DefaultRepository;
-use Symfony\Component\Filesystem\Filesystem;
 
 /** @extends DefaultRepository<CustomerUrl> */
 class CustomerUrlsRepository extends DefaultRepository
@@ -22,9 +21,6 @@ class CustomerUrlsRepository extends DefaultRepository
                 'app_domain' => $appDomain,
                 'url_hash' => $destination_url_md5_hash
             ])->getQuery()->getOneOrNullResult();
-
-        $file = new Filesystem();
-        $file->appendToFile(__DIR__ . '/result.txt', $result);
 
         return $result;
     }

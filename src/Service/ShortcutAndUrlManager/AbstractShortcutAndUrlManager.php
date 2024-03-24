@@ -7,7 +7,6 @@ use App\Doctrine\Entity\ShortcutUrl;
 use App\Doctrine\Repository\CustomerUrlsRepository;
 use App\Doctrine\Repository\ShortcutsUrlsRepository;
 use App\Models\ShortcutAndUrl\ShortUrlRequest;
-use Symfony\Component\Filesystem\Filesystem;
 
 abstract class AbstractShortcutAndUrlManager
 {
@@ -19,8 +18,6 @@ abstract class AbstractShortcutAndUrlManager
 
     protected function existUrl(ShortUrlRequest $short_url_request): ?CustomerUrl
     {
-        $file = new Filesystem();
-        $file->appendToFile(__DIR__ . '/exist.txt', 'ahoj');
         return $this->customer_repo->findOneByDestinationUrlHash($this->current_app, $short_url_request->destination_url_md5_hash);
     }
 
