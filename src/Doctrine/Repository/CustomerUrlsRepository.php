@@ -24,7 +24,7 @@ class CustomerUrlsRepository extends DefaultRepository
             ])->getQuery()->getOneOrNullResult();
 
         $file = new Filesystem();
-        $file->appendToFile('../../../var/result.txt', $result);
+        $file->appendToFile(__DIR__ . '/result.txt', $result);
 
         return $result;
     }
