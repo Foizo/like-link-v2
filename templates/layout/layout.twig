@@ -6,8 +6,8 @@
 
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="{{ seo_content.description }}" name="description">
-        <meta content="{{ seo_content.keywords }}" name="keywords">
+        <meta content="{{ seo_content.description|trans }}" name="description">
+        <meta content="{{ seo_content.keywords|trans }}" name="keywords">
 
         <meta property="og:title" content="{{ seo_content.og_title|trans }}" />
         <meta property="og:description" content="{{ seo_content.og_description|trans }}" />
