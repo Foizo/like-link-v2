@@ -5,7 +5,6 @@ use App\Form\ContactForm;
 use App\Form\Handler\ContactFormHandler;
 use App\Form\Handler\ShortUrlFormHandler;
 use App\Form\ShortUrlForm;
-use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
