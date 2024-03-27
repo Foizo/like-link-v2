@@ -2,7 +2,7 @@
 <html lang="{{ current_app.language }}">
     <head>
 
-        <title>{{ seo_content.title|trans }}</title>
+        <title>{{ seo_content.title }}</title>
 
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -31,7 +31,6 @@
         {% block javascripts %}{% endblock %}
     </head>
     <body>
-    test
     {% block body %}{% endblock %}
     </body>
     {% block script %}{% endblock %}
