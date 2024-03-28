@@ -1,0 +1,7 @@
+{% extends('@email/layout/layout.twig') %}
+{% block content %}
+    <p>Ahoj,</p>
+    <p>byl odeslán kontaktní formulář s následující zprávou:</p>
+    <p>{{ message }}</p>
+    <p>Od: {{ from }}</p>
+{% endblock %}

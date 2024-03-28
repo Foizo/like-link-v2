@@ -54,7 +54,7 @@ class ShortUrlFormHandler extends AbstractFormHandler
         if (preg_match(ShortUrl::BLOCKED_DOMAINS_PATTERN, $short_url_request->destination_url)) {
             $short_url_response = new ShortUrlResponse();
             $short_url_response->valid_response = false;
-            $short_url_response->errors = [ShortUrlForm::DESTINATION_URL_CHILD_NAME=> $this->translator->trans('app.blocked_domain_error', domain: 'errors')];
+            $short_url_response->errors = [ShortUrlForm::DESTINATION_URL_CHILD_NAME => $this->translator->trans('app.blocked_domain_error', domain: 'errors')];
             return $short_url_response;
         }
 

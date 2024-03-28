@@ -18,3 +18,6 @@ app:
   no_alias_error: 'Pro uvedenou URL není možné použít vlastní zkratku.'
   blocked_alias_error: 'Tuto zkratku nelze použít'
   blocked_domain_error: 'Likelink nelze znovu zkrátit'
+
+contact:
+  unexpected_error: 'Kontatní formulář se nepodařilo odeslat. Zukuste to prosím znovu.'
