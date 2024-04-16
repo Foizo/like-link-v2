@@ -6,7 +6,7 @@ use App\Enums\Shortcut\GeneratedShortcut;
 
 class ShortUrl
 {
-    const URL_PATTERN = '~\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=$_|!:,.;]*[-a-z0-9+&@#\/%=$_|]~';
+    const URL_PATTERN = '/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w.-]*)*\/?$/';
 
     const BLOCKED_CUSTOMER_SHORTCUTS = [
         'likelink',
