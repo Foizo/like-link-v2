@@ -2,16 +2,15 @@
 {% block content %}
 <main id="main">
     <section id="hero" class="hero d-flex align-items-center">
-
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 d-flex flex-column justify-content-center">
                     <h1>{{ 'redirect.h1'|trans }}</h1>
                     <h2>{{ 'redirect.h2'|trans }}</h2>
-                    <p>{{ redirect_url|raw }}</p>
+                    <p>{{ redirect_url[:50]|raw }}...</p>
                 </div>
                 <div class="col-lg-6 hero-img">
-                    <img src="{{ asset('images/hero-img.png') }}" class="img-fluid" alt="">
+                    <img src="{{ asset('images/hero-img.png') }}" class="img-fluid" alt="{{ current_app.domain }}">
                 </div>
             </div>
         </div>
@@ -23,7 +22,7 @@
         window.setTimeout(function () {
             window.location.href = "{{ redirect_url|raw }}";
             },
-            1000
+            1500
         );
     </script>
 {% endblock %}
