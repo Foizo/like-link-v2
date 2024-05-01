@@ -45,8 +45,10 @@ class MigrateShortcutTableCommand extends AbstractCommand
                 $output->writeln("[{$nr}/{$count}] Migrating values for CustomerURL #{$customer_url->id}");
                 if (!$dry_run) {
                     $shortcut_url = $customer_url->shortcut_url;
-                    $customer_url->shortcuts->generated_shortcut = $shortcut_url->generated_shortcut === GeneratedShortcut::NOT_GENERATED ? null : $shortcut_url->generated_shortcut;
-                    $customer_url->shortcuts->customer_shortcut = $shortcut_url->customer_shortcut === CustomerShortcut::NOT_SPECIFIED ? null : $shortcut_url->customer_shortcut;
+                    if ($shortcut_url) {
+                        $customer_url->shortcuts->generated_shortcut = $shortcut_url->generated_shortcut === GeneratedShortcut::NOT_GENERATED ? null : $shortcut_url->generated_shortcut;
+                        $customer_url->shortcuts->customer_shortcut = $shortcut_url->customer_shortcut === CustomerShortcut::NOT_SPECIFIED ? null : $shortcut_url->customer_shortcut;
+                    }
                 }
             }
 
