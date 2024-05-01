@@ -9,18 +9,4 @@ use App\Doctrine\Repository\Common\DefaultRepository;
 class ShortcutsUrlsRepository extends DefaultRepository
 {
     public const ENTITY_CLASS = ShortcutUrl::class;
-
-    function findOneByGeneratedOrCustomerShortcut(AppDomain $appDomain, string $shortcut): ?ShortcutUrl
-    {
-        return $this->createQueryBuilder('short')
-            ->where('short.app_domain = :app_domain')
-            ->andWhere('short.generated_shortcut = :shortcut OR short.customer_shortcut = :shortcut')
-            ->join('short.customer_url', 'url')
-            ->select('short, url')
-            ->setParameters([
-                'app_domain' => $appDomain,
-                'shortcut' => $shortcut
-            ])
-            ->getQuery()->getOneOrNullResult();
-    }
 }

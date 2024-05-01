@@ -15,11 +15,22 @@ class CustomerUrlsRepository extends DefaultRepository
         $result = $this->createQueryBuilder('url')
             ->where('url.app_domain = :app_domain')
             ->andWhere('url.destination_url_md5_hash = :url_hash')
-            ->join('url.shortcut_url', 'short')
-            ->select('url, short')
             ->setParameters([
                 'app_domain' => $appDomain,
                 'url_hash' => $destination_url_md5_hash
+            ])->getQuery()->getOneOrNullResult();
+
+        return $result;
+    }
+
+    function findOneByGeneratedOrCustomerShortcut(AppDomain $appDomain, string $shortcut): ?CustomerUrl
+    {
+        $result = $this->createQueryBuilder('url')
+            ->where('url.app_domain = :app_domain')
+            ->andWhere('url.shortcuts.customer_shortcut = :shortcut OR url.shortcuts.generated_shortcut = :shortcut')
+            ->setParameters([
+                'app_domain' => $appDomain,
+                'shortcut' => $shortcut
             ])->getQuery()->getOneOrNullResult();
 
         return $result;

@@ -24,11 +24,11 @@ abstract class AbstractShortcutProvider
     {
 
         return (bool) $this->em->getConnection()->fetchOne('
-                SELECT s.id
-                FROM shortcuts_urls AS s
-                WHERE s.app_domain_id = :app_domain_id
-                AND s.generated_shortcut = :shortcut 
-                OR s.customer_shortcut = :shortcut
+                SELECT u.id
+                FROM customer_urls AS u
+                WHERE u.app_domain_id = :app_domain_id
+                AND u.shortcuts_generated_shortcut = :shortcut 
+                OR u.shortcuts_customer_shortcut = :shortcut
         ',
             [
             'app_domain_id' => $this->current_app->id,

@@ -3,17 +3,16 @@ namespace App\Service\ShortcutAndUrlManager;
 
 use App\Doctrine\Entity\AppDomain;
 use App\Doctrine\Entity\CustomerUrl;
-use App\Doctrine\Entity\ShortcutUrl;
 use App\Doctrine\Repository\CustomerUrlsRepository;
-use App\Doctrine\Repository\ShortcutsUrlsRepository;
 use App\Models\ShortcutAndUrl\ShortUrlRequest;
+use Psr\Log\LoggerInterface;
 
 abstract class AbstractShortcutAndUrlManager
 {
     function __construct(
         protected AppDomain $current_app,
-        protected ShortcutsUrlsRepository $shortcut_repo,
-        protected CustomerUrlsRepository $customer_repo
+        protected CustomerUrlsRepository $customer_repo,
+        protected LoggerInterface $logger
     ){}
 
     protected function existUrl(ShortUrlRequest $short_url_request): ?CustomerUrl
@@ -21,9 +20,9 @@ abstract class AbstractShortcutAndUrlManager
         return $this->customer_repo->findOneByDestinationUrlHash($this->current_app, $short_url_request->destination_url_md5_hash);
     }
 
-    protected function existShortcut(string $shortcut): ?ShortcutUrl
+    protected function existShortcut(string $shortcut): ?CustomerUrl
     {
-        return $this->shortcut_repo->findOneByGeneratedOrCustomerShortcut($this->current_app, $shortcut);
+        return $this->customer_repo->findOneByGeneratedOrCustomerShortcut($this->current_app, $shortcut);
     }
 
     protected function resolveRedirectLink(ShortUrlRequest $short_url_request): string {

@@ -4,6 +4,7 @@ namespace App\Doctrine\Entity;
 use App\Doctrine\Entity\Common\DefaultEntity;
 use App\Doctrine\Entity\Common\Traits\RelatedDomainTrait;
 use App\Doctrine\Entity\CustomerUrl\Parts\CustomerUrlParameters;
+use App\Doctrine\Entity\CustomerUrl\Parts\CustomerUrlShortcuts;
 use App\Doctrine\Entity\CustomerUrl\Parts\CustomerUrlStatistics;
 use App\Doctrine\Repository\CustomerUrlsRepository;
 use DateTime;
@@ -14,6 +15,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: CustomerUrlsRepository::class)]
 #[ORM\Table(name: 'customer_urls')]
 
+#[ORM\UniqueConstraint(name: 'generated_shortcut', columns: ['shortcuts_generated_shortcut'])]
+#[ORM\UniqueConstraint(name: 'customer_shortcut', columns: ['shortcuts_customer_shortcut'])]
+#[ORM\UniqueConstraint(name: 'generated_vs_customer_shortcut', columns: ['shortcuts_generated_shortcut', 'shortcuts_customer_shortcut'])]
+
 #[ORM\Index(columns: ['destination_url_md5_hash'], name: 'customer_url_destination_hash_idx')]
 #[ORM\Index(columns: ['created_date'], name: 'customer_url_created_date_idx')]
 class CustomerUrl extends DefaultEntity
@@ -22,7 +27,7 @@ class CustomerUrl extends DefaultEntity
 
     /** @see ShortcutUrl::$customer_url  */
     #[ORM\OneToOne(inversedBy: 'customer_url', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(nullable: true)]
     public ?ShortcutUrl $shortcut_url = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -43,6 +48,9 @@ class CustomerUrl extends DefaultEntity
     #[ORM\Embedded]
     public CustomerUrlStatistics $stats;
 
+    #[ORM\Embedded]
+    public CustomerUrlShortcuts $shortcuts;
+
 
     function __construct()
     {
@@ -50,5 +58,6 @@ class CustomerUrl extends DefaultEntity
         $this->created_date = new DateTime();
         $this->params = new CustomerUrlParameters();
         $this->stats = new CustomerUrlStatistics();
+        $this->shortcuts = new CustomerUrlShortcuts();
     }
 }

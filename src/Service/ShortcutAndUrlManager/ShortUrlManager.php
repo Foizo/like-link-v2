@@ -3,11 +3,7 @@ namespace App\Service\ShortcutAndUrlManager;
 
 use App\Doctrine\Entity\AppDomain;
 use App\Doctrine\Entity\CustomerUrl;
-use App\Doctrine\Entity\ShortcutUrl;
 use App\Doctrine\Repository\CustomerUrlsRepository;
-use App\Doctrine\Repository\ShortcutsUrlsRepository;
-use App\Enums\Shortcut\CustomerShortcut;
-use App\Enums\Shortcut\GeneratedShortcut;
 use App\Form\ShortUrlForm;
 use App\Models\ShortcutAndUrl\ShortUrlRequest;
 use App\Models\ShortcutAndUrl\ShortUrlResponse;
@@ -15,22 +11,23 @@ use App\Service\ShortcutProvider\CustomerShortcutProvider;
 use App\Service\ShortcutProvider\GeneratedShortcutProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
 
 class ShortUrlManager extends AbstractShortcutAndUrlManager
 {
     function __construct(
-        protected AppDomain $current_app,
+        AppDomain $current_app,
+        CustomerUrlsRepository $customer_repo,
+        LoggerInterface $logger,
         protected CustomerShortcutProvider $customer_shortcut_provider,
         protected GeneratedShortcutProvider $generated_shortcut_provider,
         protected EntityManagerInterface $em,
-        protected ShortcutsUrlsRepository $shortcut_repo,
-        protected CustomerUrlsRepository $customer_repo,
         protected TranslatorInterface $translator
     )
     {
-        parent::__construct($this->current_app, $this->shortcut_repo, $this->customer_repo);
+        parent::__construct($current_app, $customer_repo, $logger);
     }
 
 
@@ -57,14 +54,18 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
         }
 
         try {
-            $shortcut_url = $this->createShortcut($short_url_request);
+            $customer_url = $this->createCustomerUrl($short_url_request);
+            $this->logger->info(__CLASS__ . ": #{$customer_url->id} CustomerUrl is created");
         } catch (Throwable $e) {
+            $this->logger->error(__CLASS__ . ": Create CustomerUrl fail: {$e->getMessage()}");
             $short_url_response->valid_response = false;
             $short_url_response->errors = [ShortUrlForm::SUBMIT_CHILD_NAME => $this->translator->trans('app.unexpected_error', domain: 'errors')];
             return $short_url_response;
         }
 
-        $short_url_response->shortcut = $short_url_request->customer_shortcut ? $shortcut_url->customer_shortcut : $shortcut_url->generated_shortcut;
+        $short_url_response->shortcut = $short_url_request->customer_shortcut ?
+            $customer_url->shortcuts->customer_shortcut :
+            $customer_url->shortcuts->generated_shortcut;
         $short_url_response->redirect_link = $this->resolveRedirectLink($short_url_request);
 
         return  $short_url_response;
@@ -77,42 +78,46 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
 
         if ($short_url_request->customer_shortcut) {
 
-            if ($customer_url->shortcut_url->customer_shortcut === CustomerShortcut::NOT_SPECIFIED) {
+            if (!$customer_url->shortcuts->customer_shortcut) {
 
                 try {
-                    $updated_shortcut_url = $this->createCustomerShortcutForExistUrl($short_url_request, $customer_url->shortcut_url);
+                    $updated_customer_url = $this->createCustomerShortcutForExistUrl($short_url_request, $customer_url);
+                    $this->logger->info(__CLASS__ . ": #{$updated_customer_url->id} CustomerUrl (customer shortcut) is updated.");
                 } catch (Throwable $e) {
+                    $this->logger->error(__CLASS__ . ": Updating CustomerUrl (customer shortcut) fail: {$e->getMessage()}");
                     $short_url_response->valid_response = false;
                     $short_url_response->errors = [ShortUrlForm::DESTINATION_URL_CHILD_NAME=> $this->translator->trans('app.alias_error', domain: 'errors')];
                     return $short_url_response;
                 }
 
-                $short_url_response->shortcut = $updated_shortcut_url->customer_shortcut;
+                $short_url_response->shortcut = $updated_customer_url->shortcuts->customer_shortcut;
             } else {
 
-                if ($customer_url->shortcut_url->customer_shortcut !== $short_url_request->shortcut) {
+                if ($customer_url->shortcuts->customer_shortcut !== $short_url_request->shortcut) {
                     $short_url_response->valid_response = false;
                     $short_url_response->errors = [ShortUrlForm::SHORTCUT_CHILD_NAME => $this->translator->trans('app.no_alias_error', domain: 'errors')];
                 }
 
-                $short_url_response->shortcut = $customer_url->shortcut_url->customer_shortcut;
+                $short_url_response->shortcut = $customer_url->shortcuts->customer_shortcut;
             }
 
         } else {
 
-            if ($customer_url->shortcut_url->generated_shortcut === GeneratedShortcut::NOT_GENERATED) {
+            if (!$customer_url->shortcuts->generated_shortcut) {
 
                 try {
-                    $updated_shortcut_url = $this->createGeneratedShortcutForExistUrl($short_url_request, $customer_url->shortcut_url);
+                    $updated_customer_url = $this->createGeneratedShortcutForExistUrl($short_url_request, $customer_url);
+                    $this->logger->info(__CLASS__ . ": #{$updated_customer_url->id} CustomerUrl (generated shortcut) is updated");
                 } catch (Throwable $e) {
+                    $this->logger->error(__CLASS__ . ": Updating CustomerUrl (generated shortcut) fail: {$e->getMessage()}");
                     $short_url_response->valid_response = false;
                     $short_url_response->errors = [ShortUrlForm::SUBMIT_CHILD_NAME => $this->translator->trans('app.unexpected_error', domain: 'errors')];
                     return $short_url_response;
                 }
 
-                $short_url_response->shortcut = $updated_shortcut_url->generated_shortcut;
+                $short_url_response->shortcut = $updated_customer_url->shortcuts->generated_shortcut;
             } else {
-                $short_url_response->shortcut = $customer_url->shortcut_url->generated_shortcut;
+                $short_url_response->shortcut = $customer_url->shortcuts->generated_shortcut;
             }
 
         }
@@ -123,8 +128,9 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
     }
 
     /** @throws Exception */
-    private function createShortcut(ShortUrlRequest $short_url_request): ShortcutUrl
+    private function createCustomerUrl(ShortUrlRequest $short_url_request): CustomerUrl
     {
+
         try {
             $this->em->beginTransaction();
 
@@ -146,33 +152,26 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
                 parse_str($query, $customer_url->params->queries);
             }
 
-            $shortcut_url = new ShortcutUrl();
-            $shortcut_url->app_domain = $this->current_app;
-
             if ($short_url_request->customer_shortcut) {
-                $shortcut_url->customer_shortcut = $short_url_request->shortcut;
+                $customer_url->shortcuts->customer_shortcut = $short_url_request->shortcut;
             } else {
-                $shortcut_url->generated_shortcut = $short_url_request->shortcut;
+                $customer_url->shortcuts->generated_shortcut = $short_url_request->shortcut;
             }
 
-            $customer_url->shortcut_url = $shortcut_url;
-            $shortcut_url->customer_url = $customer_url;
-
             $this->em->persist($customer_url);
-            $this->em->persist($shortcut_url);
 
             $this->em->flush();
             $this->em->commit();
         } catch (Throwable $e) {
             $this->em->rollback();
-            throw new Exception("Create ShortcutUrl fail! Error: {$e->getMessage()}");
+            throw new Exception("Create CustomerUrl fail: {$e->getMessage()}");
         }
 
-        return $shortcut_url;
+        return $customer_url;
     }
 
     /** @throws Exception */
-    private function createGeneratedShortcutForExistUrl(ShortUrlRequest $short_url_request, ShortcutUrl $shortcut_url): ShortcutUrl
+    private function createGeneratedShortcutForExistUrl(ShortUrlRequest $short_url_request, CustomerUrl $customer_url): CustomerUrl
     {
         $short_url_request = $this->generated_shortcut_provider->getShortcut($short_url_request);
 
@@ -183,8 +182,8 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
         try {
             $this->em->beginTransaction();
 
-            $shortcut_url->generated_shortcut = $short_url_request->shortcut;
-            $this->em->persist($shortcut_url);
+            $customer_url->shortcuts->generated_shortcut = $short_url_request->shortcut;
+            $this->em->persist($customer_url);
 
             $this->em->flush();
             $this->em->commit();
@@ -192,11 +191,11 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
             throw new Exception("Create generated shortcut on exist url fail! Error: {$e->getMessage()}");
         }
 
-        return $shortcut_url;
+        return $customer_url;
     }
 
     /** @throws Exception */
-    private function createCustomerShortcutForExistUrl(ShortUrlRequest $short_url_request, ShortcutUrl $shortcut_url): ShortcutUrl
+    private function createCustomerShortcutForExistUrl(ShortUrlRequest $short_url_request, CustomerUrl $customer_url): CustomerUrl
     {
         $short_url_request = $this->customer_shortcut_provider->getShortcut($short_url_request);
 
@@ -207,8 +206,8 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
         try {
             $this->em->beginTransaction();
 
-            $shortcut_url->customer_shortcut = $short_url_request->shortcut;
-            $this->em->persist($shortcut_url);
+            $customer_url->shortcuts->customer_shortcut = $short_url_request->shortcut;
+            $this->em->persist($customer_url);
 
             $this->em->flush();
             $this->em->commit();
@@ -216,6 +215,6 @@ class ShortUrlManager extends AbstractShortcutAndUrlManager
             throw new Exception("Create customer shortcut on exist url fail! Error: {$e->getMessage()}");
         }
 
-        return $shortcut_url;
+        return $customer_url;
     }
 }

@@ -6,7 +6,6 @@ use App\Doctrine\Entity\Common\Traits\RelatedDomainTrait;
 use App\Doctrine\Repository\ShortcutsUrlsRepository;
 use App\Enums\Shortcut\GeneratedShortcut;
 use App\Enums\Shortcut\CustomerShortcut;
-use App\SharedModels\ObjectWithoutMagicAccess\ObjectWithoutMagicAccess;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -17,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\UniqueConstraint(name: 'generated_customer_shortcut', columns: ['generated_shortcut', 'customer_shortcut'])]
 
 #[UniqueEntity(fields: ['generated_shortcut', 'customer_shortcut'], message: 'Generated and customer shortcut on given domain already exist.')]
-class ShortcutUrl extends ObjectWithoutMagicAccess
+class ShortcutUrl
 {
     use AutoIncrementIdTrait;
     use RelatedDomainTrait;
