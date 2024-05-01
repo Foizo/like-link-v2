@@ -6,6 +6,7 @@ use App\Doctrine\Entity\CustomerUrl;
 use App\Doctrine\Repository\CustomerUrlsRepository;
 use App\Enums\Shortcut\CustomerShortcut;
 use App\Enums\Shortcut\GeneratedShortcut;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -18,7 +19,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 class MigrateShortcutTableCommand extends AbstractCommand
 {
     function __construct(
-        protected CustomerUrlsRepository $customer_url_repo
+        protected CustomerUrlsRepository $customer_url_repo,
+        protected EntityManagerInterface $em
     ){
         parent::__construct();
     }
@@ -48,11 +50,13 @@ class MigrateShortcutTableCommand extends AbstractCommand
                     if ($shortcut_url) {
                         $customer_url->shortcuts->generated_shortcut = $shortcut_url->generated_shortcut === GeneratedShortcut::NOT_GENERATED ? null : $shortcut_url->generated_shortcut;
                         $customer_url->shortcuts->customer_shortcut = $shortcut_url->customer_shortcut === CustomerShortcut::NOT_SPECIFIED ? null : $shortcut_url->customer_shortcut;
+                        $this->em->persist($customer_url);
                     }
                 }
             }
 
-            $this->customer_url_repo->saveMultiple(entities: $batch_customer_urls, in_transaction: true);
+            $this->em->flush();
+            $this->em->clear(CustomerUrl::class);
         }
 
         return self::SUCCESS;
