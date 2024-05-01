@@ -14,15 +14,15 @@ class DomainStatsListener
     {
         $entity = $args->getObject();
 
-        if ($entity instanceof CustomerUrl) {
-            $em = $args->getObjectManager();
-            $em->createQueryBuilder()
-                ->update(AppDomain::class, 'ad')
-                ->set('ad.stats.urls_count', 'ad.stats.urls_count + 1')
-                ->where('ad = :app_domain')
-                ->setParameter('app_domain', $entity->app_domain)
-                ->getQuery()
-                ->execute();
-        }
+//        if ($entity instanceof CustomerUrl) {
+//            $em = $args->getObjectManager();
+//            $em->createQueryBuilder()
+//                ->update(AppDomain::class, 'ad')
+//                ->set('ad.stats.urls_count', 'ad.stats.urls_count + 1')
+//                ->where('ad = :app_domain')
+//                ->setParameter('app_domain', $entity->app_domain)
+//                ->getQuery()
+//                ->execute();
+//        }
     }
 }
