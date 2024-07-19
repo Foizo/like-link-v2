@@ -1,9 +1,10 @@
 twig:
+    default_path: '%kernel.project_dir%/templates'
+    file_name_pattern: '*.twig'
     paths:
         '%kernel.project_dir%/templates/layout': layout
         '%kernel.project_dir%/templates/layout/components': components
         '%kernel.project_dir%/templates/email-templates': email
-    default_path: '%kernel.project_dir%/templates'
     globals:
         current_app: '@App\Doctrine\Entity\AppDomain'
         seo_content: '@App\Models\SEO\SeoContent'
