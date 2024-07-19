@@ -56,8 +56,8 @@ class IndexAppController extends AbstractController
         return $this->render(
             view: 'index.html.twig',
             parameters: [
-                'short_url_form' => $short_url_form,
-                'contact_form' => $contact_form
+                'short_url_form' => $short_url_form->createView(),
+                'contact_form' => $contact_form->createView(),
             ]
         );
     }
