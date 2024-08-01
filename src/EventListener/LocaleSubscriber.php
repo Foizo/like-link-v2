@@ -16,7 +16,7 @@ class LocaleSubscriber implements EventSubscriberInterface
     function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
-        $request->setLocale($this->current_app->language);
+        $request->setLocale($this->current_app->language->value);
     }
 
     static function getSubscribedEvents(): array

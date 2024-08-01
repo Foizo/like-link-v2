@@ -52,8 +52,7 @@ class ShortUrlCommand extends AbstractCommand
 
         $short_url_request = new ShortUrlRequest();
         $short_url_request->destination_url = $url_to_short;
-        $short_url_request->destination_url_md5_hash = md5($url_to_short);
-        $short_url_request->app_domain = $app_domain;
+        $short_url_request->createDestinationUrlHash();
         if ($customer_shortcut) {
             $short_url_request->shortcut = $customer_shortcut;
             $short_url_request->customer_shortcut = true;
