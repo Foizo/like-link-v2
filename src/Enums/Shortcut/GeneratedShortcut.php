@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 namespace App\Enums\Shortcut;
 
-class GeneratedShortcut
+enum GeneratedShortcut: string
 {
     const ENTITY_COLUMN_LENGTH = 13;
 

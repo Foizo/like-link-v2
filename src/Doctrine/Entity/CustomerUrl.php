@@ -19,8 +19,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\UniqueConstraint(name: 'customer_shortcut', columns: ['shortcuts_customer_shortcut'])]
 #[ORM\UniqueConstraint(name: 'generated_vs_customer_shortcut', columns: ['shortcuts_generated_shortcut', 'shortcuts_customer_shortcut'])]
 
-#[ORM\Index(columns: ['destination_url_md5_hash'], name: 'customer_url_destination_hash_idx')]
-#[ORM\Index(columns: ['created_date'], name: 'customer_url_created_date_idx')]
+#[ORM\Index(name: 'customer_url_destination_hash_idx', columns: ['destination_url_md5_hash'])]
+#[ORM\Index(name: 'customer_url_created_date_idx', columns: ['created_date'])]
 class CustomerUrl extends DefaultEntity
 {
     use RelatedDomainTrait;

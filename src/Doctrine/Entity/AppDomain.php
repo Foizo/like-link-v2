@@ -28,7 +28,7 @@ class AppDomain extends DefaultEntity
 
     #[ORM\Column(length: Domain::ENTITY_LANG_COLUMN_LENGTH)]
     #[Assert\NotBlank]
-    public string $language = Domain::DEFAULT_APP_LANGUAGE;
+    public Domain $language = Domain::DEFAULT_APP_LANGUAGE;
 
     #[ORM\Column]
     #[Assert\Email]

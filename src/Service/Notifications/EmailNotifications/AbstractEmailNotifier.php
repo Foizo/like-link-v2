@@ -51,7 +51,7 @@ abstract class AbstractEmailNotifier
         return sprintf(
             "@email/%s-%s.html.twig",
             $this->getTemplateIdentifier(),
-            $this->current_app->language
+            $this->current_app->language->value
         );
     }
 
