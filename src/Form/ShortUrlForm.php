@@ -25,7 +25,8 @@ class ShortUrlForm extends AbstractType
                     'label' => false,
                     'attr' => [
                         'placeholder' => 'short_form.destination_url.placeholder',
-                    ]
+                    ],
+                    'default_protocol' => 'https'
                 ]
             )
             ->add(
